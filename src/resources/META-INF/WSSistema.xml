@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings version="2.1"
+                 xmlns="http://xmlns.jcp.org/xml/ns/persistence/orm"
+                 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                 xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence/orm http://xmlns.jcp.org/xml/ns/persistence/orm_2_1.xsd">
+  
+  <!-- FetchGroups -->
+<!--  <entity class="com.vodemia.terragene.Sistema.Entidades.Indicadores">
+    <fetch-group name="wsIndicador" load="true">
+      <attribute name="idIndicador" />
+      <attribute name="nroSerie" />
+      <attribute name="inicioControl" />
+      <attribute name="finControl" />
+      <attribute name="posicion" />
+      <attribute name="temperatura" />
+      <attribute name="scbi" />
+      <attribute name="finControl" />
+    </fetch-group>
+  </entity>-->
+
+  <!-- Zonas: ejemplo de vodemiaERP (Arturo) de namedqueries en xml -->
+  <!--
+  <named-query name= "Zonas.anterior"><query><![CDATA[ SELECT z.codZona FROM Zonas z WHERE z.codZona < :codigo AND z.habilitado = 0 ORDER BY z.codZona DESC ]]></query></named-query>
+  <named-query name= "Zonas.maximo"><query><![CDATA[ SELECT MAX(z.codZona) FROM Zonas z WHERE z.habilitado = 0]]></query></named-query>
+  <named-query name= "Zonas.minimo"><query><![CDATA[ SELECT MIN(z.codZona) FROM Zonas z WHERE z.habilitado = 0]]></query></named-query>
+  <named-query name= "Zonas.siguiente"><query><![CDATA[SELECT z.codZona FROM Zonas z WHERE z.codZona > :codigo AND z.habilitado = 0 ORDER BY z.codZona ASC]]></query></named-query>
+  <named-query name= "Zonas.findAllByName"><query><![CDATA[SELECT z FROM Zonas z ORDER BY z.nomZona]]></query></named-query>
+  -->
+
+</entity-mappings>

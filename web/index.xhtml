@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>   
+    <h:body>
+        <h:form>
+            Hello from Facelets
+            <div class="EmptyBox50"></div>
+
+            <p:outputLabel for="username" value="Username" style="visibility: hidden; position: fixed; " />
+            <p:inputText id="username"  placeholder="Username" value="#{loginView.username}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+            <div class="EmptyBox5"></div>
+            <p:message for="username" style="margin-top: 10px;" />
+
+            <div class="EmptyBox10"></div>
+
+            <p:outputLabel for="password" value="Password" style="visibility: hidden; position: fixed; " />
+            <p:password id="password" placeholder="Password" value="#{loginView.password}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" feedback="false" required="true" />
+            <div class="EmptyBox5"></div>
+            <p:commandButton id="logButton" value="Log in" styleClass="Fs16" actionListener="#{loginView.validateUsernamePassword()}" ajax="false" ></p:commandButton>
+
+            <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+        </h:form>
+        <br />
+        <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />
+    </h:body>
+
+</html>
+
