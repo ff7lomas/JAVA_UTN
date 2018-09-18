@@ -47,8 +47,8 @@ public class Materialesestados implements Serializable {
     private String dscEstadoMaterial;
     @Column(name = "habilitado")
     private Integer habilitado;
-    @OneToMany(mappedBy = "idEstMaterial", fetch = FetchType.LAZY)
-    private Collection<Materialesbitacora> materialesbitacoraCollection;
+//    @OneToMany(mappedBy = "idEstMaterial", fetch = FetchType.LAZY)
+//    private Collection<Materialesbitacora> materialesbitacoraCollection;
     @OneToMany(mappedBy = "idEstMaterial", fetch = FetchType.LAZY)
     private Collection<Materiales> materialesCollection;
 
@@ -83,15 +83,7 @@ public class Materialesestados implements Serializable {
         this.habilitado = habilitado;
     }
 
-    @XmlTransient
-    public Collection<Materialesbitacora> getMaterialesbitacoraCollection() {
-        return materialesbitacoraCollection;
-    }
-
-    public void setMaterialesbitacoraCollection(Collection<Materialesbitacora> materialesbitacoraCollection) {
-        this.materialesbitacoraCollection = materialesbitacoraCollection;
-    }
-
+ 
     @XmlTransient
     public Collection<Materiales> getMaterialesCollection() {
         return materialesCollection;

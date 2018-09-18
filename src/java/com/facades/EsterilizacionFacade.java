@@ -2,7 +2,7 @@ package com.facades;
 
 //import com.entidades.Equipos;
 import com.entidades.Esterilizacion;
-import com.entidades.Esterilizacionestados;
+//import com.entidades.Esterilizacionestados;
 import com.entidades.Materiales;
 import java.util.List;
 import javax.ejb.Stateless;
@@ -13,7 +13,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Nahuel Rullo <nahuelrullo at gmail.com>
+ * @author jsturla
  */
 @Stateless
 public class EsterilizacionFacade extends AbstractFacade<Esterilizacion> {
@@ -54,8 +54,8 @@ public class EsterilizacionFacade extends AbstractFacade<Esterilizacion> {
     isql += "(m.idMaterial = :idMaterial)";
 
     Query qry = em.createQuery(isql, Esterilizacion.class);
-    qry.setParameter("idEstadoEst1", new Esterilizacionestados(1));
-    qry.setParameter("idEstadoEst2", new Esterilizacionestados(2));
+//    qry.setParameter("idEstadoEst1", new Esterilizacionestados(1));
+//    qry.setParameter("idEstadoEst2", new Esterilizacionestados(2));
     qry.setParameter("idMaterial", idMaterial);
 
     List<Esterilizacion> tmp = qry.getResultList();

@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>ALL MATERIALES</title>
+    </h:head>   
+    <h:body>
+        <h:form>
+            Select option 
+            <div class="EmptyBox50"></div>
+            <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
+            
+           <p:breadCrumb>
+              <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
+              <p:menuitem value="Materiales" class="bc-last-item" />
+            </p:breadCrumb>
+              <p:dataTable id="datalist" 
+                         widgetVar="materialesDT" 
+                         var="item" 
+                         value="#{materialesView.materiales}" 
+                         emptyMessage="#{bundle.emptyDT}"
+                         selectionMode="single"
+                         selection="#{materialesView.materialSelected}"
+                         rowKey="#{item}"
+                         paginator="true" 
+                         paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                         currentPageReportTemplate="#{bundle.current_page_report}"
+                         rowsPerPageTemplate="5,15,50"
+                         rows="5"
+                         reflow="true"
+                         sortMode="multiple"
+                         rowIndexVar="#{item}"
+                         binding="#{datalist}">
+
+             <p:ajax event="rowSelect"		update="createButton  editButton deleteButton" />
+              <p:ajax event="rowUnselect"	update="createButton  editButton deleteButton" />
+
+           
+
+              <p:column headerText="ID" filterBy="#{item.idMaterial}" sortBy="#{item.idMaterial}" filterMatchMode="contains">
+                <h:outputText value="#{item.idMaterial}" />
+              </p:column>
+
+              <p:column headerText="Lote" filterBy="#{item.nroLote}" sortBy="#{item.nroLote}" filterMatchMode="contains">
+                <h:outputText value="#{item.nroLote}" />
+              </p:column>
+
+              <p:column headerText="Nro Serie" filterBy="#{item.nroSerie}" sortBy="#{item.nroSerie}" filterMatchMode="contains">
+                <h:outputText value="#{item.nroSerie}" />
+              </p:column>
+
+              <p:column headerText="Marca" filterBy="#{item.marca}" sortBy="#{item.marca}" filterMatchMode="contains">
+                <h:outputText value="#{item.marca}" />
+              </p:column>
+              
+              <p:column headerText="Familia" filterBy="#{item.familia}" sortBy="#{item.familia}" filterMatchMode="contains">
+                <h:outputText value="#{item.familia}" />
+              </p:column>
+
+
+              <f:facet name="footer">
+
+                <p:button id="createButton" 
+                                 icon="fa white Fs14 icon-plus-circled"   
+                                 value="Agregar" 
+                                 outcome="materiales_new"
+                               />
+
+                
+                <p:button id="editButton" 
+                            value="Editar" 
+                            icon="fa white Fs14 icon-ok-circled" 
+                            outcome="materiales_new" 
+                             disabled="#{empty materialesView.materialSelected}">
+                    <f:param name="materialSelected" 
+                             value="#{materialesView.materialSelected.idMaterial}" />
+                  </p:button>
+
+                <p:commandButton id="deleteButton" icon="fa white Fs14 icon-trash-1"  
+                                 value="Quitar" 
+                                 disabled="#{empty materialesView.materialSelected}" 
+                                 actionListener="#{materialesView.quitarMaterial()}"
+                                 update="datalist"
+                                 />
+
+               
+              </f:facet>
+            </p:dataTable>
+           
+        </h:form>
+        <br />
+    </h:body>
+
+</html>
+

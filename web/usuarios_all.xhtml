@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>ALL MATERIALES</title>
+    </h:head>   
+    <h:body>
+        <h:form>
+            Select option 
+            <div class="EmptyBox50"></div>
+            <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal"  autoUpdate="true"/>
+            
+           <p:breadCrumb>
+              <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
+              <p:menuitem value="Usuarios" class="bc-last-item" />
+            </p:breadCrumb>
+            
+              <p:dataTable id="datalist"                           
+                         widgetVar="materialesDT" 
+                         var="item" 
+                         value="#{usuariosView.usuarios}" 
+                         emptyMessage="#{bundle.emptyDT}"
+                         selectionMode="single"
+                         selection="#{usuariosView.usuarioSelected}"
+                         rowKey="#{item}"
+                         paginator="true" 
+                         paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                         currentPageReportTemplate="#{bundle.current_page_report}"
+                         rowsPerPageTemplate="5,15,50"
+                         rows="5"
+                         reflow="true"
+                         sortMode="multiple"
+                         rowIndexVar="#{item}"
+                         binding="#{datalist}">
+
+             <p:ajax event="rowSelect"		update="createButton  editButton deleteButton" />
+              <p:ajax event="rowUnselect"	update="createButton  editButton deleteButton" />
+
+           
+
+              <p:column headerText="ID" filterBy="#{item.idUsuario}" sortBy="#{item.idUsuario}" filterMatchMode="contains">
+                <h:outputText value="#{item.idUsuario}" />
+              </p:column>
+
+              <p:column headerText="Usuario" filterBy="#{item.user}" sortBy="#{item.user}" filterMatchMode="contains">
+                <h:outputText value="#{item.user}" />
+              </p:column>
+
+              <p:column headerText="Last Login" filterBy="#{item.lastLogin}" sortBy="#{item.lastLogin}" filterMatchMode="contains">
+                <h:outputText value="#{item.lastLogin}" />
+              </p:column>
+
+<!--              <p:column headerText="Marca" filterBy="#{item.marca}" sortBy="#{item.marca}" filterMatchMode="contains">
+                <h:outputText value="#{item.marca}" />
+              </p:column>
+              
+              <p:column headerText="Familia" filterBy="#{item.familia}" sortBy="#{item.familia}" filterMatchMode="contains">
+                <h:outputText value="#{item.familia}" />
+              </p:column>-->
+
+
+              <f:facet name="footer">
+
+                <p:button id="createButton" 
+                                 icon="fa white Fs14 icon-plus-circled"   
+                                 value="Agregar" 
+                                 outcome="usuarios_new"
+                               />
+
+                
+                <p:button id="editButton" 
+                            value="Editar" 
+                            icon="fa white Fs14 icon-ok-circled" 
+                            outcome="usuarios_new" 
+                            disabled="#{empty usuariosView.usuarioSelected}">
+                    <f:param name="usuarioSelected" 
+                             value="#{usuariosView.usuarioSelected.idUsuario}" />
+                  </p:button>
+
+                <p:commandButton id="deleteButton" icon="fa white Fs14 icon-trash-1"  
+                                 value="Quitar" 
+                                        disabled="#{empty usuariosView.usuarioSelected}"
+                                 actionListener="#{usuariosView.quitarUsuario()}"
+                                 update="datalist"
+                                 />
+
+               
+              </f:facet>
+            </p:dataTable>
+           
+        </h:form>
+        <br />
+    </h:body>
+
+</html>
+

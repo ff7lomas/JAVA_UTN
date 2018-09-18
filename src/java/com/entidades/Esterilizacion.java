@@ -45,7 +45,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Esterilizacion.findByIdEsterilizacion", query = "SELECT e FROM Esterilizacion e WHERE e.idEsterilizacion = :idEsterilizacion"),
     @NamedQuery(name = "Esterilizacion.findByCiclo", query = "SELECT e FROM Esterilizacion e WHERE e.ciclo = :ciclo"),
     @NamedQuery(name = "Esterilizacion.findByFecha", query = "SELECT e FROM Esterilizacion e WHERE e.fecha = :fecha"),
-    @NamedQuery(name = "Esterilizacion.findByPuntaje", query = "SELECT e FROM Esterilizacion e WHERE e.puntaje = :puntaje")})
+//    @NamedQuery(name = "Esterilizacion.findByPuntaje", query = "SELECT e FROM Esterilizacion e WHERE e.puntaje = :puntaje")
+
+})
 public class Esterilizacion implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -59,8 +61,8 @@ public class Esterilizacion implements Serializable {
     @Column(name = "fecha")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fecha;
-    @Column(name = "puntaje")
-    private Integer puntaje;
+//    @Column(name = "puntaje")
+//    private Integer puntaje;
     @JoinTable(name = "esterilizacionpaquetes", joinColumns = {
         @JoinColumn(name = "idEsterilizacion", referencedColumnName = "idEsterilizacion")}, inverseJoinColumns = {
         @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")})
@@ -70,9 +72,9 @@ public class Esterilizacion implements Serializable {
 //    private Collection<Esterilizacioninsumos> esterilizacioninsumosCollection;
 //    @OneToMany(mappedBy = "idEsterilizacion", fetch = FetchType.LAZY)
 //    private Collection<Indicadores> indicadoresCollection;
-    @JoinColumn(name = "idEstadoEst", referencedColumnName = "idEstadoEst")
-    @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Esterilizacionestados idEstadoEst;
+//    @JoinColumn(name = "idEstadoEst", referencedColumnName = "idEstadoEst")
+//    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+//    private Esterilizacionestados idEstadoEst;
 //    @JoinColumn(name = "idPrograma", referencedColumnName = "idPrograma")
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Equiposprogramas idPrograma;
@@ -116,13 +118,13 @@ public class Esterilizacion implements Serializable {
         this.fecha = fecha;
     }
 
-    public Integer getPuntaje() {
-        return puntaje;
-    }
-
-    public void setPuntaje(Integer puntaje) {
-        this.puntaje = puntaje;
-    }
+//    public Integer getPuntaje() {
+//        return puntaje;
+//    }
+//
+//    public void setPuntaje(Integer puntaje) {
+//        this.puntaje = puntaje;
+//    }
 
     @XmlTransient
     public Collection<Paquetes> getPaquetesCollection() {
@@ -183,13 +185,13 @@ public class Esterilizacion implements Serializable {
         return list;
     }*/
     
-    public Esterilizacionestados getIdEstadoEst() {
-        return idEstadoEst;
-    }
-
-    public void setIdEstadoEst(Esterilizacionestados idEstadoEst) {
-        this.idEstadoEst = idEstadoEst;
-    }
+//    public Esterilizacionestados getIdEstadoEst() {
+//        return idEstadoEst;
+//    }
+//
+//    public void setIdEstadoEst(Esterilizacionestados idEstadoEst) {
+//        this.idEstadoEst = idEstadoEst;
+//    }
 /*
     public Equiposprogramas getIdPrograma() {
         return idPrograma;

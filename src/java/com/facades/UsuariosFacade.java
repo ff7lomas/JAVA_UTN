@@ -36,6 +36,17 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
                 qry.setParameter("idUsuario", id);
             return (Usuarios)qry.getSingleResult();
         }
+        
+      public List<Usuarios> findHabilitados() {
+        String isql = "";
+        isql += "SELECT m FROM Usuarios m ";
+        isql += "WHERE m.habilitado = 0 ";
+        Query qry = em.createQuery(isql);
+        //qry.setParameter("idPaquete", idPaquete);
+        List<Usuarios> rval = qry.getResultList();
+
+        return rval;
+    }
 
 	public Usuarios validateByUsername(String username, String password) {
 
@@ -57,7 +68,6 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
 
 		if (!tmp.isEmpty()) {
 			usuario = tmp.get(0);
-
 			if (usuario.getPassword().equals(Utils.createPasswdHash(password))) {
 				return usuario;
 			}

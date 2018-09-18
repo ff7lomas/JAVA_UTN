@@ -20,7 +20,7 @@ import javax.inject.Named;
 
 /**
  *
- * @author Nahuel Rullo <nahuelrullo at gmail.com>
+ * @author jsturla
  */
 @Named("loginView")
 @SessionScoped
@@ -44,8 +44,8 @@ public class LoginView implements Serializable {
   // Validate login form
   public String validateUsernamePassword() {
     usuario = usuariosFacade.validateByUsername(username, password);
-  return "welcomePrimefaces";
-    //return validateUsernamePasswordHelper();
+ // return "main_menu";
+    return validateUsernamePasswordHelper();
   }
 
 
@@ -61,11 +61,11 @@ public class LoginView implements Serializable {
       } catch (Exception e) {
 //        logger.error("Error al editar usuario...");
       }
-      return "dashboard";
+      return "main_menu";
     } else {
 //      logger.debug("NO valido!!");
       JsfUtil.addErrorMessage(("usuario_password_incorrectos"),  ("ingrese_usuario_password_correctos"));
-      return "login";
+      return "dashboard";
     }
   }
 

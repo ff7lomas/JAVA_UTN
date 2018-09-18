@@ -1,12 +1,12 @@
 package com.facades;
 
-import com.entidades.Almacenes;
+//import com.entidades.Almacenes;
 //import com.entidades.Equipossubtipos;
 //import com.entidades.Kits;
 import com.entidades.Materiales;
 import com.entidades.Materialesestados;
-import com.entidades.Materialestipos;
-import com.entidades.Paquetesestados;
+//import com.entidades.Materialestipos;
+//import com.entidades.Paquetesestados;
 //import com.entidades.Remitos;
 import com.utils.Consts;
 //import com.utils.Utils;
@@ -20,7 +20,7 @@ import javax.persistence.Query;
 
 /**
  *
- * @author Nahuel Rullo <nahuelrullo at gmail.com>
+ * @author jsturla
  */
 @Stateless
 public class MaterialesFacade extends AbstractFacade<Materiales> {
@@ -155,17 +155,17 @@ public class MaterialesFacade extends AbstractFacade<Materiales> {
 
     return rval;
   }
-/*
-  public List<Materiales> findByIdRemito(Integer idRemito) {
+  
+   public List<Materiales> findHabilitados() {
     String isql = "";
-    isql += "SELECT r.materialesCollection FROM Remitos r ";
-    isql += "WHERE r.idRemito = :idRemito ";
-    Query qry = em.createQuery(isql, Remitos.class);
-    qry.setParameter("idRemito", idRemito);
+    isql += "SELECT m FROM Materiales m ";
+    isql += "WHERE m.habilitado = 0 ";
+    Query qry = em.createQuery(isql);
+    //qry.setParameter("idPaquete", idPaquete);
     List<Materiales> rval = qry.getResultList();
 
     return rval;
-  }*/
+  }
 
   public List<Materiales> findNotInKits() {
     String qry = "SELECT DISTINCT m ";
@@ -175,17 +175,6 @@ public class MaterialesFacade extends AbstractFacade<Materiales> {
     return rval;
   }
 
-  public List<Materiales> findInPaquetesEst7() {
-    Paquetesestados idEstPaquete = new Paquetesestados(Consts.ESTADO_PAQUETE_BAJA);
-    String qry = "SELECT DISTINCT m ";
-    qry += "FROM Materiales m ";
-    qry += "INNER JOIN m.paquetesCollection p ";
-    qry += "WHERE p.idEstPaquete = :idEstPaquete ";
-    List<Materiales> rval = em.createQuery(qry)
-            .setParameter("idEstPaquete", idEstPaquete)
-            .getResultList();
-    return rval;
-  }
 
   public List<Materiales> findAvailableToAddToPackage() {
     String isql = "";
@@ -208,61 +197,7 @@ public class MaterialesFacade extends AbstractFacade<Materiales> {
 
     return qry.getResultList();
   }
-/*
-  public List<Materiales> findByIdKit(Kits idKit) {
-    Query qry = em.createNamedQuery("Materiales.findByIdKit", Materiales.class);
-    qry.setParameter("idKit", idKit.getIdKit());
-    return qry.getResultList();
-  }
 
-  public List<Materiales> findBySubtpoEquipo(Equipossubtipos subtpoEquipo) {
-    String isql = "";
-    isql += "SELECT m ";
-    isql += "FROM Materiales m ";
-    isql += "WHERE m.idTipoMaterial IN ";
-    isql += "( ";
-    isql += "SELECT mt ";
-    isql += "FROM Materialestipos mt ";
-    isql += "WHERE mt.subtpoEquipo = :subtpoEquipo ";
-    isql += ") ";
-
-    Query qry = em.createQuery(isql);
-    qry.setParameter("subtpoEquipo", subtpoEquipo);
-
-    return qry.getResultList();
-  }
-
-  public List<Materiales> findBySubtpoEquipoAndIdEstMaterial(Equipossubtipos subtpoEquipo, List<String> lsEstados) {
-    return findBySubtpoEquipoAndIdEstMaterial(subtpoEquipo, lsEstados, null);
-  }
-
-  public List<Materiales> findBySubtpoEquipoAndIdEstMaterial(Equipossubtipos subtpoEquipo, List<String> lsEstados, Integer habilitado) {
-
-    String isql = "";
-    isql += "SELECT m ";
-    isql += "FROM Materiales m ";
-    isql += "WHERE m.idTipoMaterial IN ";
-    isql += "( ";
-    isql += "SELECT mt ";
-    isql += "FROM Materialestipos mt ";
-    isql += "WHERE mt.subtpoEquipo = :subtpoEquipo ";
-    isql += ") ";
-    isql += "AND ";
-    isql += "m.idEstMaterial.idEstMaterial IN " + Utils.list2jpqlList(lsEstados) + " ";
-    if (habilitado != null) {
-      isql += "AND ";
-      isql += "m.habilitado = :habilitado ";
-    }
-
-    Query qry = em.createQuery(isql);
-    qry.setParameter("subtpoEquipo", subtpoEquipo);
-    if (habilitado != null) {
-      qry.setParameter("habilitado", habilitado);
-    }
-
-    return qry.getResultList();
-  }
-*/
   public List<Materiales> findByIdEstMaterialAndHabilitado(List<String> lsEstados, Integer habilitado) {
 
     String isql = "";
@@ -291,39 +226,4 @@ public class MaterialesFacade extends AbstractFacade<Materiales> {
 
     return qry.getResultList();
   }
-  
-  public List<Materiales> filterBy(Almacenes codAlmacen, Materialestipos idTipoMaterial, List<Materialesestados> estados,  Integer habilitado) {
-    String isql = "";
-    isql += "SELECT m ";
-    isql += "FROM Materiales m ";
-    isql += "WHERE ";
-    isql += "m.habilitado = :habilitado ";
-    if(codAlmacen!=null){
-        isql += "AND m.codAlmacen = :codAlmacen ";
-    }
-    if(idTipoMaterial!=null){
-        isql += "AND m.idTipoMaterial = :idTipoMaterial ";
-    }
-    if(estados!=null){
-        isql += "AND m.idEstMaterial in :estados ";
-    }
-    
-    Query qry = em.createQuery(isql);
-    
-    if(habilitado!=null){
-        qry.setParameter("habilitado", habilitado);
-    }
-    if(codAlmacen!=null){
-        qry.setParameter("codAlmacen", codAlmacen);
-    }
-    if(idTipoMaterial!=null){
-        qry.setParameter("idTipoMaterial", idTipoMaterial);
-    }
-    if(estados!=null){
-        qry.setParameter("estados", estados);
-    }
-    
-    return qry.getResultList();
-  }
-
 }

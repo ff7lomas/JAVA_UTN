@@ -1,7 +1,7 @@
 package com.facades;
 
-import com.entidades.Materiales;
-import com.entidades.Materialesbitacora;
+//import com.entidades.Materiales;
+//import com.entidades.Materialesbitacora;
 import com.entidades.Usuarios;
 import com.utils.JsfUtil;
 import com.views.LoginView;
@@ -64,18 +64,18 @@ public abstract class AbstractFacade<T> {
 			getEntityManager().merge(entity);
 
 			// Si es un Material, logeo el cambio de estado en la bitacora de materiales
-			if (entity instanceof Materiales) {
-				Materialesbitacora materialbitacora = new Materialesbitacora();
-				materialbitacora.setFechayhora(new Date());
-				materialbitacora.setIdMaterial((Materiales) entity);
-				materialbitacora.setIdEstMaterial(((Materiales) entity).getIdEstMaterial());
-				if (usuario == null) {
-					materialbitacora.setIdUsuario(loginView.getUsuario());
-				} else {
-					materialbitacora.setIdUsuario(usuario);
-				}
-				getEntityManager().merge(materialbitacora);
-			}
+//			if (entity instanceof Materiales) {
+//				Materialesbitacora materialbitacora = new Materialesbitacora();
+//				materialbitacora.setFechayhora(new Date());
+//				materialbitacora.setIdMaterial((Materiales) entity);
+//				materialbitacora.setIdEstMaterial(((Materiales) entity).getIdEstMaterial());
+//				if (usuario == null) {
+//					materialbitacora.setIdUsuario(loginView.getUsuario());
+//				} else {
+//					materialbitacora.setIdUsuario(usuario);
+//				}
+//				getEntityManager().merge(materialbitacora);
+//			}
 		} catch (Exception e) {
 		//	logger.error("Error al editar entidad. Excepción: " + e.getMessage());
 		}

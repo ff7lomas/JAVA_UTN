@@ -42,8 +42,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Usuarios.findByUser", query = "SELECT u FROM Usuarios u WHERE u.user = :user"),
     @NamedQuery(name = "Usuarios.findByPassword", query = "SELECT u FROM Usuarios u WHERE u.password = :password"),
     @NamedQuery(name = "Usuarios.findByLastLogin", query = "SELECT u FROM Usuarios u WHERE u.lastLogin = :lastLogin"),
-    @NamedQuery(name = "Usuarios.findByRowsPerPage", query = "SELECT u FROM Usuarios u WHERE u.rowsPerPage = :rowsPerPage"),
-    @NamedQuery(name = "Usuarios.findByLocale", query = "SELECT u FROM Usuarios u WHERE u.locale = :locale"),
+  //  @NamedQuery(name = "Usuarios.findByRowsPerPage", query = "SELECT u FROM Usuarios u WHERE u.rowsPerPage = :rowsPerPage"),
+  //  @NamedQuery(name = "Usuarios.findByLocale", query = "SELECT u FROM Usuarios u WHERE u.locale = :locale"),
     @NamedQuery(name = "Usuarios.findByHabilitado", query = "SELECT u FROM Usuarios u WHERE u.habilitado = :habilitado")})
 public class Usuarios implements Serializable {
 
@@ -62,48 +62,27 @@ public class Usuarios implements Serializable {
     @Column(name = "lastLogin")
     @Temporal(TemporalType.TIMESTAMP)
     private Date lastLogin;
-//    @Basic(optional = false)
-//    @NotNull
-//    @Column(name = "rowsPerPage")
-//    private int rowsPerPage;
-//    @Basic(optional = false)
-//    @NotNull
-//    @Size(min = 1, max = 4)
-//    @Column(name = "locale")
-//    private String locale;
     @Basic(optional = false)
     @NotNull
     @Column(name = "habilitado")
     private int habilitado;
-//    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
-//    private Collection<Remitos> remitosCollection;
-//    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
-//    private Collection<Indicadoreslotecajas> indicadoreslotecajasCollection;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
-//    private Collection<UsuariosDashboardgraficos> usuariosDashboardgraficosCollection;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
+   /* @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<UsuariosEventostipos> usuariosEventostiposCollection;
-//    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
-//    private Collection<Esterilizacionincidencias> esterilizacionincidenciasCollection;
     @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<Lavadoincidencias> lavadoincidenciasCollection;
-//    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
-//    private Collection<Acondicionamientoincidencias> acondicionamientoincidenciasCollection;
     @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<Materialesbitacora> materialesbitacoraCollection;
     @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<Paquetes> paquetesCollection;
     @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
-    private Collection<UsuariosHistoricotoggle> usuariosHistoricotoggleCollection;
-//    @OneToMany(mappedBy = "idUsuarioControl", fetch = FetchType.LAZY)
-//    private Collection<Indicadores> indicadoresCollection;
-    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
+//    private Collection<UsuariosHistoricotoggle> usuariosHistoricotoggleCollection;
+//    @OneToMany(mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<Esterilizacion> esterilizacionCollection;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario", fetch = FetchType.LAZY)
     private Collection<UsuariosMenuopciones> usuariosMenuopcionesCollection;
     @JoinColumn(name = "idPersona", referencedColumnName = "idPersona")
     @ManyToOne(optional = false, fetch = FetchType.LAZY)
-    private Personas idPersona;
+    private Personas idPersona;*/
 
     public Usuarios() {
     }
@@ -202,14 +181,14 @@ public class Usuarios implements Serializable {
 //        this.usuariosDashboardgraficosCollection = usuariosDashboardgraficosCollection;
 //    }
 
-    @XmlTransient
+   /* @XmlTransient
     public Collection<UsuariosEventostipos> getUsuariosEventostiposCollection() {
         return usuariosEventostiposCollection;
     }
 
     public void setUsuariosEventostiposCollection(Collection<UsuariosEventostipos> usuariosEventostiposCollection) {
         this.usuariosEventostiposCollection = usuariosEventostiposCollection;
-    }
+    }*/
 
 //    @XmlTransient
 //    public Collection<Esterilizacionincidencias> getEsterilizacionincidenciasCollection() {
@@ -219,7 +198,7 @@ public class Usuarios implements Serializable {
 //    public void setEsterilizacionincidenciasCollection(Collection<Esterilizacionincidencias> esterilizacionincidenciasCollection) {
 //        this.esterilizacionincidenciasCollection = esterilizacionincidenciasCollection;
 //    }
-
+/*
     @XmlTransient
     public Collection<Lavadoincidencias> getLavadoincidenciasCollection() {
         return lavadoincidenciasCollection;
@@ -228,7 +207,7 @@ public class Usuarios implements Serializable {
     public void setLavadoincidenciasCollection(Collection<Lavadoincidencias> lavadoincidenciasCollection) {
         this.lavadoincidenciasCollection = lavadoincidenciasCollection;
     }
-
+*/
 //    @XmlTransient
 //    public Collection<Acondicionamientoincidencias> getAcondicionamientoincidenciasCollection() {
 //        return acondicionamientoincidenciasCollection;
@@ -238,7 +217,7 @@ public class Usuarios implements Serializable {
 //        this.acondicionamientoincidenciasCollection = acondicionamientoincidenciasCollection;
 //    }
 
-    @XmlTransient
+    /*@XmlTransient
     public Collection<Materialesbitacora> getMaterialesbitacoraCollection() {
         return materialesbitacoraCollection;
     }
@@ -254,16 +233,16 @@ public class Usuarios implements Serializable {
 
     public void setPaquetesCollection(Collection<Paquetes> paquetesCollection) {
         this.paquetesCollection = paquetesCollection;
-    }
+    }*/
 
-    @XmlTransient
-    public Collection<UsuariosHistoricotoggle> getUsuariosHistoricotoggleCollection() {
-        return usuariosHistoricotoggleCollection;
-    }
-
-    public void setUsuariosHistoricotoggleCollection(Collection<UsuariosHistoricotoggle> usuariosHistoricotoggleCollection) {
-        this.usuariosHistoricotoggleCollection = usuariosHistoricotoggleCollection;
-    }
+//    @XmlTransient
+//    public Collection<UsuariosHistoricotoggle> getUsuariosHistoricotoggleCollection() {
+//        return usuariosHistoricotoggleCollection;
+//    }
+//
+//    public void setUsuariosHistoricotoggleCollection(Collection<UsuariosHistoricotoggle> usuariosHistoricotoggleCollection) {
+//        this.usuariosHistoricotoggleCollection = usuariosHistoricotoggleCollection;
+//    }
 
 //    @XmlTransient
 //    public Collection<Indicadores> getIndicadoresCollection() {
@@ -274,7 +253,7 @@ public class Usuarios implements Serializable {
 //        this.indicadoresCollection = indicadoresCollection;
 //    }
 
-    @XmlTransient
+   /* @XmlTransient
     public Collection<Esterilizacion> getEsterilizacionCollection() {
         return esterilizacionCollection;
     }
@@ -299,7 +278,7 @@ public class Usuarios implements Serializable {
     public void setIdPersona(Personas idPersona) {
         this.idPersona = idPersona;
     }
-
+*/
     @Override
     public int hashCode() {
         int hash = 0;

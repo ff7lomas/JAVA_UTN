@@ -65,18 +65,9 @@ public class Paquetes implements Serializable {
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuarios idUsuario;
-    @JoinColumn(name = "idEstPaquete", referencedColumnName = "idEstPaquete")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Paquetesestados idEstPaquete;
-//    @OneToMany(mappedBy = "idPaquete", fetch = FetchType.LAZY)
-//    private Collection<Indicadores> indicadoresCollection;
-//    @OneToMany(mappedBy = "idPaquete", fetch = FetchType.LAZY)
-//    private Collection<Insumos> insumosCollection;
-    @JoinColumn(name = "codAlmacen", referencedColumnName = "idAlmacen")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Almacenes codAlmacen;
-//     @ManyToMany(mappedBy = "paquetesCollection", fetch = FetchType.LAZY)
-//    private Collection<Cirugia> cirugiaCollection;
+//    @JoinColumn(name = "idEstPaquete", referencedColumnName = "idEstPaquete")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Paquetesestados idEstPaquete;
 
     public Paquetes() {
     }
@@ -172,49 +163,6 @@ public class Paquetes implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Paquetesestados getIdEstPaquete() {
-        return idEstPaquete;
-    }
-
-    public void setIdEstPaquete(Paquetesestados idEstPaquete) {
-        this.idEstPaquete = idEstPaquete;
-    }
-//
-//    @XmlTransient
-//    public Collection<Indicadores> getIndicadoresCollection() {
-//        return indicadoresCollection;
-//    }
-//
-//    public void setIndicadoresCollection(Collection<Indicadores> indicadoresCollection) {
-//        this.indicadoresCollection = indicadoresCollection;
-//    }
-//
-//    @XmlTransient
-//    public Collection<Insumos> getInsumosCollection() {
-//        return insumosCollection;
-//    }
-//
-//    public void setInsumosCollection(Collection<Insumos> insumosCollection) {
-//        this.insumosCollection = insumosCollection;
-//    }
-//    
-//      @XmlTransient
-//    public Collection<Cirugia> getCirugiaCollection() {
-//        return cirugiaCollection;
-//    }
-//
-//    public void setCirugiaCollection(Collection<Cirugia> cirugiaCollection) {
-//        this.cirugiaCollection = cirugiaCollection;
-//    }
-//    
-//    public Cirugia getCirugia()
-//    {
-//        if(!cirugiaCollection.isEmpty())
-//        {
-//            return (Cirugia)cirugiaCollection.toArray()[0];
-//        }
-//        else return null;
-//    }
 
     @Override
     public int hashCode() {
@@ -236,18 +184,6 @@ public class Paquetes implements Serializable {
         return true;
     }
 
-    @Override
-    public String toString() {
-        return "com.entidades.Paquetes[ idPaquete=" + idPaquete + " ]";
-    }
-    
-        public Almacenes getCodAlmacen() {
-        return codAlmacen;
-    }
-
-    public void setCodAlmacen(Almacenes codAlmacen) {
-        this.codAlmacen = codAlmacen;
-    }
     
 //      public int actualizarEstado()
 //    {

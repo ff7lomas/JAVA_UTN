@@ -39,7 +39,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Materiales.findByIdMaterial", query = "SELECT m FROM Materiales m WHERE m.idMaterial = :idMaterial"),
     @NamedQuery(name = "Materiales.findByNroLote", query = "SELECT m FROM Materiales m WHERE m.nroLote = :nroLote"),
     @NamedQuery(name = "Materiales.findByNroSerie", query = "SELECT m FROM Materiales m WHERE m.nroSerie = :nroSerie"),
-    @NamedQuery(name = "Materiales.findByIdKit", query = "SELECT m FROM Materiales m WHERE m.idKit = :idKit"),
+//    @NamedQuery(name = "Materiales.findByIdKit", query = "SELECT m FROM Materiales m WHERE m.idKit = :idKit"),
     @NamedQuery(name = "Materiales.findByHabilitado", query = "SELECT m FROM Materiales m WHERE m.habilitado = :habilitado")})
 public class Materiales implements Serializable {
 
@@ -56,17 +56,18 @@ public class Materiales implements Serializable {
     private String nroLote;
     @Basic(optional = false)
     @NotNull
+    @Size(min = 1, max = 45)
     @Column(name = "nroSerie")
-    private int nroSerie;
+    private String nroSerie;
     @Basic(optional = false)
     @NotNull
     @Column(name = "habilitado")
     private int habilitado;
-    @JoinTable(name = "materiales_lavadoincidencias", joinColumns = {
-        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
-        @JoinColumn(name = "idLavadoincidencia", referencedColumnName = "idLavadoincidencia")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Lavadoincidencias> lavadoincidenciasCollection;
+//    @JoinTable(name = "materiales_lavadoincidencias", joinColumns = {
+//        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
+//        @JoinColumn(name = "idLavadoincidencia", referencedColumnName = "idLavadoincidencia")})
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    private Collection<Lavadoincidencias> lavadoincidenciasCollection;
     @JoinTable(name = "paquetesmateriales", joinColumns = {
         @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
         @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")})
@@ -86,28 +87,38 @@ public class Materiales implements Serializable {
 //        @JoinColumn(name = "idEsterilizacionincidencia", referencedColumnName = "idEsterilizacionincidencia")})
 //    @ManyToMany(fetch = FetchType.LAZY)
 //    private Collection<Esterilizacionincidencias> esterilizacionincidenciasCollection;
-    @OneToMany(mappedBy = "idMaterial", fetch = FetchType.LAZY)
-    private Collection<Materialesbitacora> materialesbitacoraCollection;
-    @JoinColumn(name = "codAlmacen", referencedColumnName = "idAlmacen")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Almacenes codAlmacen;
+//    @OneToMany(mappedBy = "idMaterial", fetch = FetchType.LAZY)
+//    private Collection<Materialesbitacora> materialesbitacoraCollection;
+//    @JoinColumn(name = "codAlmacen", referencedColumnName = "idAlmacen")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Almacenes codAlmacen;
 //    @JoinColumn(name = "idKit", referencedColumnName = "idKit")
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Kits idKit;
-    @JoinColumn(name = "idTipoMaterial", referencedColumnName = "idTipoMaterial")
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Materialestipos idTipoMaterial;
+//    @JoinColumn(name = "idTipoMaterial", referencedColumnName = "idTipoMaterial")
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    private Materialestipos idTipoMaterial;
     @JoinColumn(name = "idEstMaterial", referencedColumnName = "idEstMaterial")
     @ManyToOne(fetch = FetchType.LAZY)
     private Materialesestados idEstMaterial;
 //    @JoinColumn(name = "idPropietario", referencedColumnName = "idPropietario")
 //    @ManyToOne(fetch = FetchType.LAZY)
 //    private Propietarios idPropietario;
-    @JoinTable(name = "lavadosmateriales", joinColumns = {
-        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
-        @JoinColumn(name = "idLavado", referencedColumnName = "idLavado")})
-    @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Lavados> lavadosCollection;
+//    @JoinTable(name = "lavadosmateriales", joinColumns = {
+//        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
+//        @JoinColumn(name = "idLavado", referencedColumnName = "idLavado")})
+//    @ManyToMany(fetch = FetchType.LAZY)
+//    private Collection<Lavados> lavadosCollection;
+    
+       @Size(max = 100)
+    @Column(name = "dscTipoMaterial")
+    private String dscTipoMaterial;
+           @Size(max = 100)
+    @Column(name = "marca")
+    private String marca;
+    @Size(max = 100)
+    @Column(name = "familia")
+    private String familia;
 
     public Materiales() {
     }
@@ -116,7 +127,7 @@ public class Materiales implements Serializable {
         this.idMaterial = idMaterial;
     }
 
-    public Materiales(Integer idMaterial, String nroLote, int nroSerie, int habilitado) {
+    public Materiales(Integer idMaterial, String nroLote, String nroSerie, int habilitado) {
         this.idMaterial = idMaterial;
         this.nroLote = nroLote;
         this.nroSerie = nroSerie;
@@ -139,11 +150,11 @@ public class Materiales implements Serializable {
         this.nroLote = nroLote;
     }
 
-    public int getNroSerie() {
+    public String getNroSerie() {
         return nroSerie;
     }
 
-    public void setNroSerie(int nroSerie) {
+    public void setNroSerie(String nroSerie) {
         this.nroSerie = nroSerie;
     }
 
@@ -155,33 +166,33 @@ public class Materiales implements Serializable {
         this.habilitado = habilitado;
     }
 
-    @XmlTransient
-    public Collection<Lavadoincidencias> getLavadoincidenciasCollection() {
-        return lavadoincidenciasCollection;
-    }
-
-    public void setLavadoincidenciasCollection(Collection<Lavadoincidencias> lavadoincidenciasCollection) {
-        this.lavadoincidenciasCollection = lavadoincidenciasCollection;
-    }
+//    @XmlTransient
+//    public Collection<Lavadoincidencias> getLavadoincidenciasCollection() {
+//        return lavadoincidenciasCollection;
+//    }
+//
+//    public void setLavadoincidenciasCollection(Collection<Lavadoincidencias> lavadoincidenciasCollection) {
+//        this.lavadoincidenciasCollection = lavadoincidenciasCollection;
+//    }
     
  
             
-     @XmlTransient
-    public Collection<Lavados> getLavadosCollection() {
-        return lavadosCollection;
-    }
-
-    public void setLavadosCollection(Collection<Lavados> lavadosCollection) {
-        this.lavadosCollection = lavadosCollection;
-    }
-    
-    public Lavados getLastLavado()
-    {
-        if(lavadosCollection.size()!=0)
-   return (Lavados) lavadosCollection.toArray()[lavadosCollection.toArray().length-1];
-        else
-            return null;
-    }
+//     @XmlTransient
+//    public Collection<Lavados> getLavadosCollection() {
+//        return lavadosCollection;
+//    }
+//
+//    public void setLavadosCollection(Collection<Lavados> lavadosCollection) {
+//        this.lavadosCollection = lavadosCollection;
+//    }
+//    
+//    public Lavados getLastLavado()
+//    {
+//        if(lavadosCollection.size()!=0)
+//   return (Lavados) lavadosCollection.toArray()[lavadosCollection.toArray().length-1];
+//        else
+//            return null;
+//    }
     
        public Paquetes getLastPaquete()
     { 
@@ -238,22 +249,22 @@ public class Materiales implements Serializable {
 //        this.esterilizacionincidenciasCollection = esterilizacionincidenciasCollection;
 //    }
 
-    @XmlTransient
-    public Collection<Materialesbitacora> getMaterialesbitacoraCollection() {
-        return materialesbitacoraCollection;
-    }
-
-    public void setMaterialesbitacoraCollection(Collection<Materialesbitacora> materialesbitacoraCollection) {
-        this.materialesbitacoraCollection = materialesbitacoraCollection;
-    }
-
-    public Almacenes getCodAlmacen() {
-        return codAlmacen;
-    }
-
-    public void setCodAlmacen(Almacenes codAlmacen) {
-        this.codAlmacen = codAlmacen;
-    }
+//    @XmlTransient
+//    public Collection<Materialesbitacora> getMaterialesbitacoraCollection() {
+//        return materialesbitacoraCollection;
+//    }
+//
+//    public void setMaterialesbitacoraCollection(Collection<Materialesbitacora> materialesbitacoraCollection) {
+//        this.materialesbitacoraCollection = materialesbitacoraCollection;
+//    }
+//
+//    public Almacenes getCodAlmacen() {
+//        return codAlmacen;
+//    }
+//
+//    public void setCodAlmacen(Almacenes codAlmacen) {
+//        this.codAlmacen = codAlmacen;
+//    }
 
 //    public Kits getIdKit() {
 //        return idKit;
@@ -263,13 +274,13 @@ public class Materiales implements Serializable {
 //        this.idKit = idKit;
 //    }
 
-    public Materialestipos getIdTipoMaterial() {
-        return idTipoMaterial;
-    }
-
-    public void setIdTipoMaterial(Materialestipos idTipoMaterial) {
-        this.idTipoMaterial = idTipoMaterial;
-    }
+//    public Materialestipos getIdTipoMaterial() {
+//        return idTipoMaterial;
+//    }
+//
+//    public void setIdTipoMaterial(Materialestipos idTipoMaterial) {
+//        this.idTipoMaterial = idTipoMaterial;
+//    }
 
     public Materialesestados getIdEstMaterial() {
         return idEstMaterial;
@@ -310,6 +321,44 @@ public class Materiales implements Serializable {
     @Override
     public String toString() {
         return "com.entidades.Materiales[ idMaterial=" + idMaterial + " ]";
+    }
+
+    /**
+     * @return the dscTipoMaterial
+     */
+    public String getDscTipoMaterial() {
+        return dscTipoMaterial;
+    }
+
+    /**
+     * @param dscTipoMaterial the dscTipoMaterial to set
+     */
+    public void setDscTipoMaterial(String dscTipoMaterial) {
+        this.dscTipoMaterial = dscTipoMaterial;
+    }
+
+    /**
+     * @return the marca
+     */
+    public String getMarca() {
+        return marca;
+    }
+    
+    public void setMarca(String marca)
+    {
+        this.marca=marca;
+    }
+
+    /**
+     * @return the familia
+     */
+    public String getFamilia() {
+        return familia;
+    }
+    
+    public void setFamilia(String familia)
+    {
+        this.familia=familia;
     }
     
 }
