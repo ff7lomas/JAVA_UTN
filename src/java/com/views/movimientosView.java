@@ -150,7 +150,7 @@ public class movimientosView implements Serializable {
         }
         catch( Exception e)
         {
-            
+                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
         }
     }
     
@@ -162,7 +162,7 @@ public class movimientosView implements Serializable {
         }
         catch(Exception e)
         {
-            
+                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
         }
     }
 

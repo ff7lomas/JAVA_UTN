@@ -59,7 +59,7 @@ public class LoginView implements Serializable {
       try {
         usuariosFacade.edit(usuario);
       } catch (Exception e) {
-//        logger.error("Error al editar usuario...");
+            JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
       }
       return "main_menu";
     } else {

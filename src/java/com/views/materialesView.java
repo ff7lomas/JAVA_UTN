@@ -215,7 +215,7 @@ public class materialesView implements Serializable {
         }
         catch(Exception e)
         {
-            
+                     JsfUtil.addErrorMessage("Exepción: "+e.getMessage());   
         }
                 
     }
@@ -239,7 +239,7 @@ public class materialesView implements Serializable {
         }
         catch(Exception e)
         {
-            
+                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
         }
     }
 

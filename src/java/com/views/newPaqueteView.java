@@ -118,7 +118,7 @@ public class newPaqueteView implements Serializable {
             
             newPaquete.setIdUsuario(loginView.getUsuario());
             
-            Materialesestados estadoObjectivo= materialesestadosFacade.find(Consts.ESTADO_MATERIAL_INGRESADO);
+            Materialesestados estadoObjectivo= materialesestadosFacade.find(Consts.ESTADO_MATERIAL_ESTERILIZADO);
             for(Materiales material: materialesSelected)
             {
              material.setIdEstMaterial(estadoObjectivo);
@@ -134,7 +134,7 @@ public class newPaqueteView implements Serializable {
         }
         catch( Exception e)
         {
-            
+            JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
         }
     }
     

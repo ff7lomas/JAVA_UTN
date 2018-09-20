@@ -177,7 +177,7 @@ public class usuariosView implements Serializable {
         }
         catch(Exception e)
         {
-            
+                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
         }
                
     }
@@ -203,7 +203,7 @@ public class usuariosView implements Serializable {
         }
         catch(Exception e)
         {
-            
+                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
         }
     }
 
