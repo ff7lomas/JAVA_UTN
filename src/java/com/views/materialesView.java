@@ -2,6 +2,7 @@ package com.views;
 
 import com.entidades.Materiales;
 import com.entidades.Materialesestados;
+import com.utils.Consts;
 //import com.models.Datamatrix;
 import com.utils.JsfUtil;
 import com.utils.Utils;
@@ -194,7 +195,7 @@ public class materialesView implements Serializable {
                 
             } else {//nuevo
 
-                Materialesestados matEst = materialesestadosFacade.find(0);
+                Materialesestados matEst = materialesestadosFacade.find(Consts.ESTADO_MATERIAL_FUERA);
 
                 materialSelected = new Materiales();
                 materialSelected.setNroLote(newLote);

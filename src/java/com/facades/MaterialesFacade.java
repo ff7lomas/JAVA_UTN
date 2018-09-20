@@ -176,36 +176,14 @@ public class MaterialesFacade extends AbstractFacade<Materiales> {
   }
 
 
-  public List<Materiales> findAvailableToAddToPackage() {
-    String isql = "";
-    isql += "SELECT * ";
-    isql += "FROM materiales m ";
-    isql += "WHERE ";
-    isql += "m.idEstMaterial = " + Consts.TIPO_MONITOREO_IQAS + " ";
-    isql += "AND ";
-    isql += "(IFNULL(( ";
-    isql += "SELECT COUNT(*) ";
-    isql += "FROM paquetes p ";
-    isql += "INNER JOIN paquetesmateriales pm ";
-    isql += "ON p.idPaquete = pm.idPaquete ";
-    isql += "WHERE pm.idMaterial = m.idMaterial ";
-    isql += "AND p.idEstPaquete != " + Consts.ESTADO_PAQUETE_BAJA + " ";
-    isql += "), 0) = 0) ";
-    isql += "AND m.habilitado = " + Consts.REGISTRO_HABILITADO + " ";
-
-    Query qry = em.createNativeQuery(isql, Materiales.class);
-
-    return qry.getResultList();
-  }
-
-  public List<Materiales> findByIdEstMaterialAndHabilitado(List<String> lsEstados, Integer habilitado) {
+  public List<Materiales> findByIdEstMaterialAndHabilitado(int lsEstados, Integer habilitado) {
 
     String isql = "";
     isql += "SELECT m ";
     isql += "FROM Materiales m ";
     isql += "WHERE ";
-    isql += "m.idEstMaterial.idEstMaterial IN "; //+ Utils.list2jpqlList(lsEstados) + " ";
-    isql += "AND m.habilitado = :habilitado ";
+    isql += "m.idEstMaterial.idEstMaterial = "+lsEstados; //+ Utils.list2jpqlList(lsEstados) + " ";
+    isql += " AND m.habilitado = :habilitado ";
 
     Query qry = em.createQuery(isql);
     qry.setParameter("habilitado", habilitado);
@@ -219,7 +197,7 @@ public class MaterialesFacade extends AbstractFacade<Materiales> {
     isql += "FROM Materiales m ";
     isql += "WHERE ";
     isql += "m.idEstMaterial.idEstMaterial NOT IN ";// + Utils.list2jpqlList(lsEstados) + " ";
-    isql += "AND m.habilitado = :habilitado ";
+    isql += " AND m.habilitado = :habilitado ";
 
     Query qry = em.createQuery(isql);
     qry.setParameter("habilitado", habilitado);

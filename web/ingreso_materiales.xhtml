@@ -5,25 +5,44 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>ALL MATERIALES</title>
+        <title>INGRESO MATERIALES</title>
     </h:head>   
     <h:body>
         <h:form>
-            Select option 
+            Ingreso materiales
             <div class="EmptyBox50"></div>
             <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
             
            <p:breadCrumb>
               <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
-              <p:menuitem value="Materiales" class="bc-last-item" />
+              <p:menuitem value="Ingreso Materiales" class="bc-last-item" />
             </p:breadCrumb>
+            
+            <p:panelGrid columns="4" layout="grid" style="width: 800px; border: 0" rendered="false">
+            
+            <p:outputLabel for="lote" value="Lote:"  />
+            <p:inputText id="lote"  placeholder="Lote" value="#{materialesView.newLote}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+           
+            <p:outputLabel for="serie" value="Serie:"  />
+            <p:inputText id="serie"  placeholder="Serie" value="#{materialesView.newSerie}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+           
+            <p:outputLabel for="desc" value="Descripción:"  />
+            <p:inputText id="desc"  placeholder="Descripción" value="#{materialesView.newDesc}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+           
+            <p:outputLabel for="marca" value="Marca:"  />
+            <p:inputText id="marca"  placeholder="Marca" value="#{materialesView.newMarca}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+           
+            <p:outputLabel for="familia" value="Familia:"  />
+            <p:inputText id="familia"  placeholder="Familia" value="#{materialesView.newFamilia}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+           
+            </p:panelGrid>
+            
               <p:dataTable id="datalist" 
                          widgetVar="materialesDT" 
                          var="item" 
-                         value="#{materialesView.materiales}" 
+                         value="#{movimientosView.materialesIngreso}" 
                          emptyMessage="#{bundle.emptyDT}"
-                         selectionMode="single"
-                         selection="#{materialesView.materialSelected}"
+                         selection="#{movimientosView.materialesSelected}"
                          rowKey="#{item}"
                          paginator="true" 
                          paginatorPosition="top"
@@ -33,13 +52,13 @@
                          rows="5"
                          reflow="true"
                          sortMode="multiple"
-                         rowIndexVar="#{item}"
+                         rowIndexVar="#{item.idMaterial}"
                          binding="#{datalist}">
 
-             <p:ajax event="rowSelect"		update="createButton  editButton deleteButton" />
-              <p:ajax event="rowUnselect"	update="createButton  editButton deleteButton" />
+             <p:ajax event="rowSelect"		update="createButton  deleteButton" />
+              <p:ajax event="rowUnselect"	update="createButton   deleteButton" />
 
-           
+           <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
               <p:column headerText="ID" filterBy="#{item.idMaterial}" sortBy="#{item.idMaterial}" filterMatchMode="contains">
                 <h:outputText value="#{item.idMaterial}" />
@@ -61,34 +80,19 @@
                 <h:outputText value="#{item.familia}" />
               </p:column>
 
-                 <p:column headerText="Estado" filterBy="#{item.idEstMaterial.dscEstadoMaterial}" sortBy="#{item.idEstMaterial.dscEstadoMaterial}" filterMatchMode="contains">
+           <p:column headerText="Estado" filterBy="#{item.idEstMaterial.dscEstadoMaterial}" sortBy="#{item.idEstMaterial.dscEstadoMaterial}" filterMatchMode="contains">
                 <h:outputText value="#{item.idEstMaterial.dscEstadoMaterial}" />
               </p:column>
 
               <f:facet name="footer">
 
-                <p:button id="createButton" 
-                                 icon="fa white Fs14 icon-plus-circled"   
-                                 value="Agregar" 
-                                 outcome="materiales_new"
-                               />
-
                 
-                <p:button id="editButton" 
-                            value="Editar" 
-                            icon="fa white Fs14 icon-ok-circled" 
-                            outcome="materiales_new" 
-                             disabled="#{empty materialesView.materialSelected}">
-                    <f:param name="materialSelected" 
-                             value="#{materialesView.materialSelected.idMaterial}" />
-                  </p:button>
+                  <p:commandButton id="createButton" value="Crear" update="datalist " 
+                                   actionListener="#{movimientosView.createMovimiento()}" ajax="false" />
+                
 
-                <p:commandButton id="deleteButton" icon="fa white Fs14 icon-trash-1"  
-                                 value="Quitar" 
-                                 disabled="#{empty materialesView.materialSelected}" 
-                                 actionListener="#{materialesView.quitarMaterial()}"
-                                 update="datalist"
-                                 />
+                <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
+                                 actionListener="#{movimientosView.reset()}"/>
 
                
               </f:facet>
