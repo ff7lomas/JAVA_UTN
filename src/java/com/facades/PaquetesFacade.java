@@ -91,24 +91,21 @@ public class PaquetesFacade extends AbstractFacade<Paquetes> {
 //		return findByEstPaquete(idEstPaquete, null);
 //	}
 //
-//	public List<Paquetes> findByEstPaquete(Paquetesestados idEstPaquete, Integer habilitado) {
-//		List<Paquetes> rval = null;
-//
-//		String isql = "SELECT p ";
-//		isql += "FROM Paquetes p ";
-//		isql += "WHERE p.idEstPaquete = :idEstPaquete ";
-//		if (habilitado != null) {
-//			isql += "AND p.habilitado = :habilitado ";
-//		}
-//
-//		Query qry = em.createQuery(isql, Paquetes.class);
-//		qry.setParameter("idEstPaquete", idEstPaquete);
-//		qry.setParameter("habilitado", habilitado);
-//
-//		rval = qry.getResultList();
-//
-//		return rval;
-//	}
+	public List<Paquetes> findHabilitados() {
+		List<Paquetes> rval = null;
+
+		String isql = "SELECT p ";
+		isql += "FROM Paquetes p ";
+			isql += "AND p.habilitado = :habilitado ";
+		
+
+		Query qry = em.createQuery(isql, Paquetes.class);
+		qry.setParameter("habilitado", Consts.REGISTRO_HABILITADO);
+
+		rval = qry.getResultList();
+
+		return rval;
+	}
 
 //	public List<Paquetes> findByEstPaquete(List<String> lsEstados, boolean pertenece, Integer habilitado) {
 //		List<Paquetes> rval = null;

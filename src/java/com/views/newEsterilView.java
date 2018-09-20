@@ -1,9 +1,11 @@
 package com.views;
 
+import com.entidades.Esterilizacion;
 import com.entidades.Materiales;
 import com.entidades.Materialesestados;
 import com.entidades.Paquetes;
 import com.entidades.Usuarios;
+import com.facades.EsterilizacionFacade;
 import com.facades.PaquetesFacade;
 //import com.models.Datamatrix;
 import com.utils.JsfUtil;
@@ -29,21 +31,21 @@ import javax.inject.Named;
  *
  * @author jsturla
  */
-@Named("newPaqueteView")
+@Named("newEsterilView")
 @ViewScoped
-public class newPaqueteView implements Serializable {
+public class newEsterilView implements Serializable {
 
   private static final long serialVersionUID = 1094801825228386363L;
 
 //  private static final Logger logger = LogManager.getLogger(LoginView.class);
 
-  private List<Materiales> materiales;
-  private List<Materiales> materialesSelected;
+  private List<Paquetes> paquetes;
+  private List<Paquetes> paquetesSelected;
   
-  
+ 
   
  private Date newFecha;
- private int newTipoMov;
+ private int newCiclo;
  private Usuarios newUsuario;
   
   
@@ -53,14 +55,14 @@ public class newPaqueteView implements Serializable {
   @PostConstruct
     public void init() {
         
-        materialesSelected =  new ArrayList<Materiales>();
-        materiales = null;       
+        paquetesSelected =  new ArrayList<Paquetes>();
+        paquetes = null;       
 
     }
 
     public void reset() {
-        materiales=null;
-        materialesSelected= new ArrayList<Materiales>();
+        paquetes=null;
+        paquetesSelected= new ArrayList<Paquetes>();
         newFecha= new Date();
     }
   
@@ -74,60 +76,67 @@ public class newPaqueteView implements Serializable {
         @EJB
   private com.facades.PaquetesFacade paquetesFacade;
     
+        @EJB
+  private com.facades.EsterilizacionFacade esterilizacionFacade;
+        
      @EJB
   private com.facades.UsuariosFacade usuariosFacade;
 
     /**
      * @return the materiales
      */
-    public List<Materiales> getMateriales() {
-      if(materiales== null)
-               materiales= materialesFacade.findByIdEstMaterialAndHabilitado(Consts.ESTADO_MATERIAL_INGRESADO,Consts.REGISTRO_HABILITADO); //CAMBIAR ESTO POR ESTADOS
-        return materiales;
+    public List<Paquetes> getPaquetes() {
+      if(paquetes== null)
+               paquetes= paquetesFacade.findHabilitados();
+        return paquetes;
     }
     
 
     /**
-     * @param materiales the materiales to set
+     * @param paquetes the materiales to set
      */
-    public void setMateriales(List<Materiales> materiales) {
-        this.materiales = materiales;
+    public void setPaquetes(List<Paquetes> paquetes) {
+        this.paquetes = paquetes;
     }
 
     /**
      * @return the materialSelected
      */
-    public List<Materiales> getMaterialesSelected() {
-        return materialesSelected;
+    public List<Paquetes> getPaquetesSelected() {
+        return paquetesSelected;
     }
 
     /**
-     * @param materialesSelected the materialSelected to set
+     * @param paquetesSelected the materialSelected to set
      */
-    public void setMaterialesSelected(List<Materiales> materialesSelected) {
-        this.materialesSelected = materialesSelected;
+    public void setPaquetesSelected(List<Paquetes> paquetesSelected) {
+        this.paquetesSelected = paquetesSelected;
     }
 
     
-    public void createPaquete()
+    public void createEsterilizacion()
     {
         try
         {
-            Paquetes newPaquete= new Paquetes();
-            newPaquete.setFecha(new Date());
+            Esterilizacion newEsteril= new Esterilizacion();
+            newEsteril.setFecha(new Date());
             
-            newPaquete.setIdUsuario(loginView.getUsuario());
+            newEsteril.setIdUsuario(loginView.getUsuario());
             
-            Materialesestados estadoObjectivo= materialesestadosFacade.find(Consts.ESTADO_MATERIAL_PREPARADO);
-            for(Materiales material: materialesSelected)
+            newEsteril.setCiclo(newCiclo);
+            
+            Materialesestados estadoObjectivo= materialesestadosFacade.find(Consts.ESTADO_MATERIAL_ESTERILIZADO);
+            for(Paquetes paquete: paquetes)
+            {
+            for(Materiales material: paquete.getMaterialesCollection())
             {
              material.setIdEstMaterial(estadoObjectivo);
              materialesFacade.edit(material);
             }
+            }
             
-            newPaquete.setMaterialesCollection(materialesSelected);
-            newPaquete.setHabilitado(Consts.REGISTRO_HABILITADO);
-            paquetesFacade.create(newPaquete);
+            newEsteril.setPaquetesCollection(paquetesSelected);
+            esterilizacionFacade.create(newEsteril);
             JsfUtil.addSuccessMessage("Ingreso exitoso!");
             
             reset();
@@ -167,15 +176,15 @@ public class newPaqueteView implements Serializable {
     /**
      * @return the newTipoMov
      */
-    public int getNewTipoMov() {
-        return newTipoMov;
+    public int getNewCiclo() {
+        return newCiclo;
     }
 
     /**
-     * @param newTipoMov the newTipoMov to set
+     * @param newCiclo the newTipoMov to set
      */
-    public void setNewTipoMov(int newTipoMov) {
-        this.newTipoMov = newTipoMov;
+    public void setNewCiclo(int newCiclo) {
+        this.newCiclo = newCiclo;
     }
 
     /**
