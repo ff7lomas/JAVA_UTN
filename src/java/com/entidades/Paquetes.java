@@ -19,6 +19,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
@@ -58,8 +59,15 @@ public class Paquetes implements Serializable {
     @NotNull
     @Column(name = "habilitado")
     private int habilitado;
-    @ManyToMany(mappedBy = "paquetesCollection", fetch = FetchType.LAZY)
+//    @ManyToMany(mappedBy = "paquetesCollection", fetch = FetchType.LAZY)
+//    private Collection<Materiales> materialesCollection;
+    
+     @JoinTable(name = "paquetesmateriales", joinColumns = {
+        @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")}, inverseJoinColumns = {
+        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")})
+    @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Materiales> materialesCollection;
+     
     @ManyToMany(mappedBy = "paquetesCollection", fetch = FetchType.LAZY)
     private Collection<Esterilizacion> esterilizacionCollection;
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")

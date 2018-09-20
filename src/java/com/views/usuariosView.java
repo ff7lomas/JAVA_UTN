@@ -189,6 +189,7 @@ public class usuariosView implements Serializable {
             usuarioSelected.setHabilitado(1);
             usuariosFacade.edit(usuarioSelected);
             JsfUtil.addSuccessMessage("Eliminado con éxito");
+            usuarios=null;
         }
         else
             JsfUtil.addErrorMessage("No puede eliminar admin");

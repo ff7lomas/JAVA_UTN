@@ -73,31 +73,6 @@ public class Materiales implements Serializable {
         @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Paquetes> paquetesCollection;
-//    @ManyToMany(mappedBy = "materialesCollection", fetch = FetchType.LAZY)
-//    private Collection<Cirugia> cirugiaCollection;
-//    @ManyToMany(mappedBy = "materialesCollection", fetch = FetchType.LAZY)
-//    private Collection<Remitos> remitosCollection;
-//    @JoinTable(name = "materiales_acondicionamientoincidencias", joinColumns = {
-//        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
-//        @JoinColumn(name = "idAcondicionamientoincidencia", referencedColumnName = "idAcondicionamientoincidencia")})
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private Collection<Acondicionamientoincidencias> acondicionamientoincidenciasCollection;
-//    @JoinTable(name = "materiales_esterilizacionincidencias", joinColumns = {
-//        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
-//        @JoinColumn(name = "idEsterilizacionincidencia", referencedColumnName = "idEsterilizacionincidencia")})
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private Collection<Esterilizacionincidencias> esterilizacionincidenciasCollection;
-//    @OneToMany(mappedBy = "idMaterial", fetch = FetchType.LAZY)
-//    private Collection<Materialesbitacora> materialesbitacoraCollection;
-//    @JoinColumn(name = "codAlmacen", referencedColumnName = "idAlmacen")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Almacenes codAlmacen;
-//    @JoinColumn(name = "idKit", referencedColumnName = "idKit")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Kits idKit;
-//    @JoinColumn(name = "idTipoMaterial", referencedColumnName = "idTipoMaterial")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Materialestipos idTipoMaterial;
     @JoinColumn(name = "idEstMaterial", referencedColumnName = "idEstMaterial")
     @ManyToOne(fetch = FetchType.LAZY)
     private Materialesestados idEstMaterial;

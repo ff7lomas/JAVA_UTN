@@ -2,9 +2,9 @@ package com.views;
 
 import com.entidades.Materiales;
 import com.entidades.Materialesestados;
-import com.entidades.Movimiento;
+import com.entidades.Paquetes;
 import com.entidades.Usuarios;
-import com.facades.MovimientosFacade;
+import com.facades.PaquetesFacade;
 //import com.models.Datamatrix;
 import com.utils.JsfUtil;
 import com.utils.Consts;
@@ -29,9 +29,9 @@ import javax.inject.Named;
  *
  * @author jsturla
  */
-@Named("movimientosView")
+@Named("newPaqueteView")
 @ViewScoped
-public class movimientosView implements Serializable {
+public class newPaqueteView implements Serializable {
 
   private static final long serialVersionUID = 1094801825228386363L;
 
@@ -46,7 +46,6 @@ public class movimientosView implements Serializable {
  private int newTipoMov;
  private Usuarios newUsuario;
   
-   Integer  materialIdSelected;
   
      @Inject
   private LoginView loginView;
@@ -73,7 +72,7 @@ public class movimientosView implements Serializable {
   private com.facades.MaterialesestadosFacade materialesestadosFacade;
     
         @EJB
-  private com.facades.MovimientosFacade movimientosFacade;
+  private com.facades.PaquetesFacade paquetesFacade;
     
      @EJB
   private com.facades.UsuariosFacade usuariosFacade;
@@ -82,26 +81,11 @@ public class movimientosView implements Serializable {
      * @return the materiales
      */
     public List<Materiales> getMateriales() {
-        if(materiales== null)
-         //   materiales= materialesFacade.findAll();
-               materiales= materialesFacade.findHabilitados();
+      if(materiales== null)
+               materiales= materialesFacade.findByIdEstMaterialAndHabilitado(Consts.ESTADO_MATERIAL_INGRESADO,Consts.REGISTRO_HABILITADO); //CAMBIAR ESTO POR ESTADOS
         return materiales;
     }
     
-       public List<Materiales> getMaterialesIngreso() {
-           newTipoMov=Consts.MOVIMIENTO_ENTRADA;
-        if(materiales== null)
-               materiales= materialesFacade.findByIdEstMaterialAndHabilitado(Consts.ESTADO_MATERIAL_FUERA,Consts.REGISTRO_HABILITADO); //CAMBIAR ESTO POR ESTADOS
-        return materiales;
-    }
-       
-          public List<Materiales> getMaterialesSalida() {
-                newTipoMov=Consts.MOVIMIENTO_SALIDA;
-        if(materiales== null)
-             materiales= materialesFacade.findByIdEstMaterialAndHabilitado(Consts.ESTADO_MATERIAL_ESTERILIZADO,Consts.REGISTRO_HABILITADO); //CAMBIAR ESTO POR ESTADOS
-      
-        return materiales;
-    }
 
     /**
      * @param materiales the materiales to set
@@ -125,14 +109,14 @@ public class movimientosView implements Serializable {
     }
 
     
-    public void createMovimiento()
+    public void createPaquete()
     {
         try
         {
-            Movimiento newMovimiento= new Movimiento();
-            newMovimiento.setFecha(new Date());
+            Paquetes newPaquete= new Paquetes();
+            newPaquete.setFecha(new Date());
             
-            newMovimiento.setIdUsuario(loginView.getUsuario());
+            newPaquete.setIdUsuario(loginView.getUsuario());
             
             Materialesestados estadoObjectivo= materialesestadosFacade.find(Consts.ESTADO_MATERIAL_INGRESADO);
             for(Materiales material: materialesSelected)
@@ -141,9 +125,9 @@ public class movimientosView implements Serializable {
              materialesFacade.edit(material);
             }
             
-            newMovimiento.setMaterialesCollection(materialesSelected);
-            newMovimiento.setTipoMovimiento(newTipoMov);
-            movimientosFacade.create(newMovimiento);
+            newPaquete.setMaterialesCollection(materialesSelected);
+            newPaquete.setHabilitado(Consts.REGISTRO_HABILITADO);
+            paquetesFacade.create(newPaquete);
             JsfUtil.addSuccessMessage("Ingreso exitoso!");
             
             reset();
@@ -154,17 +138,17 @@ public class movimientosView implements Serializable {
         }
     }
     
-      public void goBack()
-    {
-        try{
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-      ec.redirect(ec.getRequestContextPath() + "/faces/materiales_all.xhtml");
-        }
-        catch(Exception e)
-        {
-            
-        }
-    }
+//      public void goBack()
+//    {
+//        try{
+//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+//      ec.redirect(ec.getRequestContextPath() + "/faces/materiales_all.xhtml");
+//        }
+//        catch(Exception e)
+//        {
+//            
+//        }
+//    }
 
     /**
      * @return the newFecha

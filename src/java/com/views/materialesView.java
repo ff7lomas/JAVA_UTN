@@ -227,6 +227,7 @@ public class materialesView implements Serializable {
             materialSelected.setHabilitado(1);
             materialesFacade.edit(materialSelected);
             JsfUtil.addSuccessMessage("Eliminado con éxito");
+            materiales=null;
         }
     }
     
