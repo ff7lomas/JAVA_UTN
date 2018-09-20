@@ -5,11 +5,11 @@
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>ARMADO PAQUETES</title>
+        <title>ESTERILIZACIÓN PAQUETES</title>
     </h:head>   
     <h:body>
         <h:form>
-            Nuevo paquete
+            Esterilizar paquetes
             <div class="EmptyBox50"></div>
             <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
             
@@ -18,12 +18,20 @@
               <p:menuitem value="Armado Paquetes" class="bc-last-item" />
             </p:breadCrumb>
             
+            <p:panelGrid columns="2" layout="grid" style="width: 400px; border: 0">
+            
+            <p:outputLabel for="Ciclo" value="Ciclo:"  />
+            <p:inputText id="Ciclo"  placeholder="Ciclo" value="#{newEsterilView.newCiclo}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+           
+           
+            </p:panelGrid>
+            
               <p:dataTable id="datalist" 
-                         widgetVar="materialesDT" 
+                         widgetVar="paquetesDT" 
                          var="item" 
                          value="#{newEsterilView.paquetes}" 
                          emptyMessage="No se encontraron registros"
-                         selection="#{newPaqueteView.materialesSelected}"
+                         selection="#{newEsterilView.paquetesSelected}"
                          rowKey="#{item}"
                          paginator="true" 
                          paginatorPosition="top"
@@ -33,7 +41,7 @@
                          rows="5"
                          reflow="true"
                          sortMode="multiple"
-                         rowIndexVar="#{item.idMaterial}"
+                         rowIndexVar="#{item.idPaquete}"
                          binding="#{datalist}">
 
              <p:ajax event="rowSelect"		update="createButton  deleteButton" />
@@ -41,39 +49,30 @@
 
            <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
-              <p:column headerText="ID" filterBy="#{item.idMaterial}" sortBy="#{item.idMaterial}" filterMatchMode="contains">
-                <h:outputText value="#{item.idMaterial}" />
+           <p:column headerText="ID" filterBy="#{item.idPaquete}" sortBy="#{item.idPaquete}" filterMatchMode="contains">
+                <h:outputText value="#{item.idPaquete}" />
+              </p:column>
+           
+           <p:column headerText="Cant materiales" filterBy="#{item.materialesCollection.size()}" sortBy="#{item.materialesCollection.size()}" filterMatchMode="contains">
+                <h:outputText value="#{item.materialesCollection.size()}" />
               </p:column>
 
-              <p:column headerText="Lote" filterBy="#{item.nroLote}" sortBy="#{item.nroLote}" filterMatchMode="contains">
-                <h:outputText value="#{item.nroLote}" />
+
+           <p:column headerText="Lote" filterBy="#{item.fecha}" sortBy="#{item.fecha}" filterMatchMode="contains">
+                <h:outputText value="#{item.fecha}" />
               </p:column>
 
-              <p:column headerText="Nro Serie" filterBy="#{item.nroSerie}" sortBy="#{item.nroSerie}" filterMatchMode="contains">
-                <h:outputText value="#{item.nroSerie}" />
-              </p:column>
-
-              <p:column headerText="Marca" filterBy="#{item.marca}" sortBy="#{item.marca}" filterMatchMode="contains">
-                <h:outputText value="#{item.marca}" />
-              </p:column>
-              
-              <p:column headerText="Familia" filterBy="#{item.familia}" sortBy="#{item.familia}" filterMatchMode="contains">
-                <h:outputText value="#{item.familia}" />
-              </p:column>
-
-           <p:column headerText="Estado" filterBy="#{item.idEstMaterial.dscEstadoMaterial}" sortBy="#{item.idEstMaterial.dscEstadoMaterial}" filterMatchMode="contains">
-                <h:outputText value="#{item.idEstMaterial.dscEstadoMaterial}" />
-              </p:column>
+           
 
               <f:facet name="footer">
 
                 
                   <p:commandButton id="createButton" value="Crear" update="datalist " 
-                                   actionListener="#{newPaqueteView.createPaquete()}" ajax="false" />
+                                   actionListener="#{newEsterilView.createEsterilizacion()}" ajax="false" />
                 
 
                 <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
-                                 actionListener="#{newPaqueteView.reset()}"/>
+                                 actionListener="#{newEsterilView.reset()}"/>
 
                
               </f:facet>

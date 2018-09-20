@@ -96,7 +96,7 @@ public class PaquetesFacade extends AbstractFacade<Paquetes> {
 
 		String isql = "SELECT p ";
 		isql += "FROM Paquetes p ";
-			isql += "AND p.habilitado = :habilitado ";
+			isql += "WHERE p.habilitado = :habilitado ";
 		
 
 		Query qry = em.createQuery(isql, Paquetes.class);
