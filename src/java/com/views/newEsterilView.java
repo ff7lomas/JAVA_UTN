@@ -86,8 +86,16 @@ public class newEsterilView implements Serializable {
      * @return the materiales
      */
     public List<Paquetes> getPaquetes() {
-      if(paquetes== null)
-               paquetes= paquetesFacade.findHabilitados();
+//        List<Paquetes> tempPaquete;
+        if (paquetes == null) {
+            paquetes = paquetesFacade.findHabilitadosNoEsteriles();
+//            paquetes = new ArrayList<Paquetes>();
+//            for (Paquetes paquete : tempPaquete) {
+//                if (!paquete.isEsterilizado()) {
+//                    paquetes.add(paquete);
+//                }
+//            }
+        }
         return paquetes;
     }
     
@@ -118,6 +126,10 @@ public class newEsterilView implements Serializable {
     {
         try
         {
+            if(newCiclo==0) {JsfUtil.addErrorMessage("Ciclo no puede ser 0");
+            return;}
+            
+            
             Esterilizacion newEsteril= new Esterilizacion();
             newEsteril.setFecha(new Date());
             
@@ -126,20 +138,23 @@ public class newEsterilView implements Serializable {
             newEsteril.setCiclo(newCiclo);
             
             Materialesestados estadoObjectivo= materialesestadosFacade.find(Consts.ESTADO_MATERIAL_ESTERILIZADO);
-            for(Paquetes paquete: paquetes)
+            for(Paquetes paquete: paquetesSelected)
             {
             for(Materiales material: paquete.getMaterialesCollection())
             {
              material.setIdEstMaterial(estadoObjectivo);
              materialesFacade.edit(material);
             }
+            paquete.setEsterilizado(1);
+            paquetesFacade.edit(paquete);
             }
             
             newEsteril.setPaquetesCollection(paquetesSelected);
             esterilizacionFacade.create(newEsteril);
-            JsfUtil.addSuccessMessage("Ingreso exitoso!");
-            
             reset();
+            paquetes=null;
+            JsfUtil.addSuccessMessage("Esterilización registrada!");
+            
         }
         catch( Exception e)
         {

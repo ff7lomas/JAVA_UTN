@@ -15,7 +15,7 @@
             
            <p:breadCrumb>
               <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
-              <p:menuitem value="Armado Paquetes" class="bc-last-item" />
+              <p:menuitem value="Esterilización Paquetes" class="bc-last-item" />
             </p:breadCrumb>
             
             <p:panelGrid columns="2" layout="grid" style="width: 400px; border: 0">
@@ -68,11 +68,12 @@
 
                 
                   <p:commandButton id="createButton" value="Crear" update="datalist " 
-                                   actionListener="#{newEsterilView.createEsterilizacion()}" ajax="false" />
+                                   actionListener="#{newEsterilView.createEsterilizacion()}" ajax="false" 
+                                   disabled="#{newEsterilView.paquetesSelected.size()==0}"/>
                 
 
                 <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
-                                 actionListener="#{newEsterilView.reset()}"/>
+                                 actionListener="#{newEsterilView.reset()}" disabled="#{newEsterilView.paquetesSelected.size()==0}"/>
 
                
               </f:facet>

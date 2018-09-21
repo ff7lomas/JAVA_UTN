@@ -59,6 +59,10 @@ public class Paquetes implements Serializable {
     @NotNull
     @Column(name = "habilitado")
     private int habilitado;
+     @Basic(optional = false)
+    @NotNull
+    @Column(name = "esterilizado")
+    private int esterilizado;
 //    @ManyToMany(mappedBy = "paquetesCollection", fetch = FetchType.LAZY)
 //    private Collection<Materiales> materialesCollection;
     
@@ -120,6 +124,14 @@ public class Paquetes implements Serializable {
 //         
 //        return list;
 //    }
+    
+    public boolean isEsterilizado()
+    {
+        if(esterilizacionCollection.size()>0)
+            return true;
+        else
+            return false;
+    }
     
     public Integer getIdPaquete() {
         return idPaquete;
@@ -249,4 +261,18 @@ public class Paquetes implements Serializable {
 //        //cambiar a parcialmente controlado, controlado, sin control, exito, sin exito, etceterererarar
 //    }
 //    
+
+    /**
+     * @return the esterilizado
+     */
+    public int getEsterilizado() {
+        return esterilizado;
+    }
+
+    /**
+     * @param esterilizado the esterilizado to set
+     */
+    public void setEsterilizado(int esterilizado) {
+        this.esterilizado = esterilizado;
+    }
 }
