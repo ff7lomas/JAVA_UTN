@@ -69,11 +69,11 @@
 
                 
                   <p:commandButton id="createButton" value="Crear" update="datalist " 
-                                   actionListener="#{newPaqueteView.createPaquete()}" ajax="false" />
+                                   actionListener="#{newPaqueteView.createPaquete()}" ajax="false" disabled="#{newPaqueteView.materialesSelected.size()==0}" />
                 
 
                 <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
-                                 actionListener="#{newPaqueteView.reset()}"/>
+                                 actionListener="#{newPaqueteView.reset()}" disabled="#{newPaqueteView.materialesSelected.size()==0}"/>
 
                
               </f:facet>

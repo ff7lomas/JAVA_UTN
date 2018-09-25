@@ -88,11 +88,11 @@
 
                 
                   <p:commandButton id="createButton" value="Crear" update="datalist " 
-                                   actionListener="#{movimientosView.createMovimiento()}" ajax="false" />
+                                   actionListener="#{movimientosView.createMovimiento()}" ajax="false" disabled="#{movimientosView.materialesSelected.size()==0}"/>
                 
 
                 <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
-                                 actionListener="#{movimientosView.reset()}"/>
+                                 actionListener="#{movimientosView.reset()}" disabled="#{movimientosView.materialesSelected.size()==0}"/>
 
                
               </f:facet>

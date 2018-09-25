@@ -223,7 +223,7 @@ public class usuariosView implements Serializable {
     }
       
       public String getUser(){
-         if(loginView.getUsername()!="admin")
+         if(!loginView.getUsername().equals("admin"))
          { goLogin();
          return "";}
              else
