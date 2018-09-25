@@ -224,5 +224,25 @@ public class egresoPaqueteView implements Serializable {
     public void setNewUsuario(Usuarios newUsuario) {
         this.newUsuario = newUsuario;
     }
+    
+           public void goLogin()
+    {
+        try{
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+      ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
+        }
+        catch(Exception e)
+        {
+                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
+        }
+    }
+      
+      public String getUser(){
+         if(loginView.getUsername()==null)
+         { goLogin();
+         return "";}
+             else
+          return loginView.getUsername();
+      }
 
 }

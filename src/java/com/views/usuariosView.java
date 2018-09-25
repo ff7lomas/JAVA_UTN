@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
+import javax.inject.Inject;
 import javax.inject.Named;
 //import org.apache.logging.log4j.LogManager;
 //import org.apache.logging.log4j.Logger;
@@ -65,6 +66,8 @@ public class usuariosView implements Serializable {
         setRepeatPassword("");
     }
   
+         @Inject
+  private LoginView loginView;
 
   @EJB
   private com.facades.UsuariosFacade usuariosFacade;
@@ -206,5 +209,25 @@ public class usuariosView implements Serializable {
                         JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
         }
     }
+    
+           public void goLogin()
+    {
+        try{
+        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+      ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
+        }
+        catch(Exception e)
+        {
+                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
+        }
+    }
+      
+      public String getUser(){
+         if(loginView.getUsername()!="admin")
+         { goLogin();
+         return "";}
+             else
+          return loginView.getUsername();
+      }
 
 }

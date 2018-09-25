@@ -12,7 +12,7 @@
             Esterilizar paquetes
             <div class="EmptyBox50"></div>
             <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
-            
+            <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{newEsterilView.user}" outcome="index"></p:link>
            <p:breadCrumb>
               <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
               <p:menuitem value="Esterilización Paquetes" class="bc-last-item" />
