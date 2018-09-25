@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>ESTERILIZACIÓN PAQUETES</title>
+    </h:head>   
+    <h:body>
+        <h:form>
+            Esterilizar paquetes
+            <div class="EmptyBox50"></div>
+            <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
+            
+           <p:breadCrumb>
+              <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
+              <p:menuitem value="Esterilización Paquetes" class="bc-last-item" />
+            </p:breadCrumb>
+            
+            <p:panelGrid columns="2" layout="grid" style="width: 400px; border: 0">
+            
+<!--            <p:outputLabel for="Ciclo" value="Ciclo:"  />
+            <p:inputText id="Ciclo"  placeholder="Ciclo" value="#{egresoPaqueteView.newCiclo}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+           -->
+           
+            </p:panelGrid>
+            
+              <p:dataTable id="datalist" 
+                         widgetVar="paquetesDT" 
+                         var="item" 
+                         value="#{egresoPaqueteView.paquetes}" 
+                         emptyMessage="No se encontraron registros"
+                         selection="#{egresoPaqueteView.paquetesSelected}"
+                         rowKey="#{item}"
+                         paginator="true" 
+                         paginatorPosition="top"
+                         paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} {Exporters}"
+                         currentPageReportTemplate="#{bundle.current_page_report}"
+                         rowsPerPageTemplate="5,15,50"
+                         rows="5"
+                         reflow="true"
+                         sortMode="multiple"
+                         rowIndexVar="#{item.idPaquete}"
+                         binding="#{datalist}">
+
+             <p:ajax event="rowSelect"		update="createButton  deleteButton" />
+              <p:ajax event="rowUnselect"	update="createButton   deleteButton" />
+
+           <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+
+           <p:column headerText="ID" filterBy="#{item.idPaquete}" sortBy="#{item.idPaquete}" filterMatchMode="contains">
+                <h:outputText value="#{item.idPaquete}" />
+              </p:column>
+           
+           <p:column headerText="Cant materiales" filterBy="#{item.materialesCollection.size()}" sortBy="#{item.materialesCollection.size()}" filterMatchMode="contains">
+                <h:outputText value="#{item.materialesCollection.size()}" />
+              </p:column>
+
+
+           <p:column headerText="Lote" filterBy="#{item.fecha}" sortBy="#{item.fecha}" filterMatchMode="contains">
+                <h:outputText value="#{item.fecha}" />
+              </p:column>
+
+           
+
+              <f:facet name="footer">
+
+                
+                  <p:commandButton id="createButton" value="Crear" update="datalist " 
+                                   actionListener="#{egresoPaqueteView.createEgreso()}" ajax="false" 
+                                   disabled="#{egresoPaqueteView.paquetesSelected.size()==0}"/>
+                
+
+                <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
+                                 actionListener="#{egresoPaqueteView.reset()}" disabled="#{egresoPaqueteView.paquetesSelected.size()==0}"/>
+
+               
+              </f:facet>
+            </p:dataTable>
+           
+        </h:form>
+        <br />
+    </h:body>
+
+</html>
+

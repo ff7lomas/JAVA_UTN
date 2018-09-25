@@ -124,6 +124,23 @@ public class PaquetesFacade extends AbstractFacade<Paquetes> {
 		return rval;
 	}
 
+               public List<Paquetes> findHabilitadosSiEsteriles() {
+		List<Paquetes> rval = null;
+
+		String isql = "SELECT p ";
+		isql += "FROM Paquetes p ";
+			isql += "WHERE p.habilitado = :habilitado ";
+                        isql+=" AND p.esterilizado=1";
+		
+
+		Query qry = em.createQuery(isql, Paquetes.class);
+		qry.setParameter("habilitado", Consts.REGISTRO_HABILITADO);
+
+		rval = qry.getResultList();
+
+		return rval;
+	} 
+                
 //	public List<Paquetes> findByEstPaquete(List<String> lsEstados, boolean pertenece, Integer habilitado) {
 //		List<Paquetes> rval = null;
 //
