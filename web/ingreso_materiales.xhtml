@@ -9,7 +9,7 @@
     </h:head>   
     <h:body>
         <h:form>
-            Ingreso materiales
+            Registrar el ingreso de Materiales Quirúrgicos a la central.
             <div class="EmptyBox50"></div>
             <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
             <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{materialesView.user}" outcome="index"></p:link>     
@@ -87,7 +87,7 @@
                 <f:facet name="footer">
 
 
-                    <p:commandButton id="createButton" value="Crear" update="datalist " 
+                    <p:commandButton id="createButton" value="Ingresar" update="datalist " 
                                      actionListener="#{movimientosView.createMovimiento()}" ajax="false" disabled="#{movimientosView.materialesSelected.size()==0}"/>
 
 
