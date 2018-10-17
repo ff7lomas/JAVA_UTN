@@ -47,6 +47,21 @@ public class LoginView implements Serializable {
  // return "main_menu";
     return validateUsernamePasswordHelper();
   }
+  
+  public boolean isAdminLogin()
+  {
+            HttpSession session = SessionBean.getSession();
+            String debug=session.getAttribute("username").toString();
+     if(debug.equals("admin")) return true;
+     else return false;
+  }
+  
+  public String usuarioLogeado()
+  {
+       HttpSession session = SessionBean.getSession();
+            String debug=session.getAttribute("username").toString();
+            return debug;
+  }
 
 
   // Validate login helper

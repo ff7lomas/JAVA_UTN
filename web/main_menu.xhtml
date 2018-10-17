@@ -12,7 +12,8 @@
         <h:form>
             Select option 
             <div class="EmptyBox50"></div>
-
+            <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{loginView.usuarioLogeado()}" outcome="index"></p:link>
+         
             <p:panelGrid columns="1" layout="grid" style="width: 400px; border: 0">
             
             <p:button id="opt1" value="Materiales" styleClass="Fs16"  outcome="materiales_all" ></p:button>
@@ -21,6 +22,8 @@
               <p:button id="opt4" value="Armado paquetes" styleClass="Fs16"  outcome="armado_paquetes" ></p:button> 
               <p:button id="opt5" value="Esterilizar paquetes" styleClass="Fs16"  outcome="esterilizar_paquete" >   </p:button>                   
            <p:button id="opt6" value="Egreso paquete" styleClass="Fs16"  outcome="egresar_paquete" ></p:button>
+
+           <p:button id="opt7" value="Reporte 1" styleClass="Fs16"  outcome="materiales_report" rendered="#{loginView.adminLogin}" ></p:button>
                
                
             </p:panelGrid>

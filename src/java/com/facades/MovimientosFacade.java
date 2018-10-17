@@ -54,6 +54,24 @@ public class MovimientosFacade extends AbstractFacade<Movimiento> {
 
     return rval;
   }
+  
+  public List<Movimiento> findByTipoMov(Integer tipoMovimiento) {
+    Movimiento rval = null;
+
+    String isql = "SELECT e ";
+    isql += "FROM Movimiento e ";
+//    isql += "JOIN e.idEstadoEst ee";
+//    isql += "JOIN e.paquetesCollection p ";
+//    isql += "WHERE (e.idEstadoEst = :idEstadoEst1 OR e.idEstadoEst = :idEstadoEst2) AND ";
+    isql += "WHERE (e.tipoMovimiento = :tipoMovimiento)";
+
+    Query qry = em.createQuery(isql);
+//    qry.setParameter("idEstadoEst1", new Esterilizacionestados(1));
+//    qry.setParameter("idEstadoEst2", new Esterilizacionestados(2));
+    qry.setParameter("tipoMovimiento", tipoMovimiento);
+
+    return qry.getResultList();
+  }
 
   public Integer getNextId() {
     String isql = "";

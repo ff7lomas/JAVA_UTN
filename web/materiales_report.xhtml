@@ -1,0 +1,31 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Reporte general</title>
+    </h:head>   
+    <h:body>
+        <h:form>
+
+            <div class="EmptyBox50"></div>
+            <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
+            <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{loginView.usuarioLogeado()}" outcome="index"></p:link>
+            <p:breadCrumb>
+                <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
+                <p:menuitem value="Reportes" class="bc-last-item" />
+            </p:breadCrumb>
+
+            <p:chart type="pie" model="#{reporteView.pieModel1}" style="width:400px;height:300px" />
+
+            <p:chart type="pie" model="#{reporteView.pieModel2}" style="width:400px;height:300px" />
+
+
+        </h:form>
+        <br />
+    </h:body>
+
+</html>
+
