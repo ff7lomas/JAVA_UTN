@@ -7,7 +7,7 @@ import javax.persistence.PersistenceContext;
 
 /**
  *
- * @author Nahuel Rullo <nahuelrullo at gmail.com>
+ * @author jsturla
  */
 @Stateless
 public class MaterialesestadosFacade extends AbstractFacade<Materialesestados> {

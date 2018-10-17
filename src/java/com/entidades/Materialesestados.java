@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.entidades;
 
 import java.io.Serializable;
@@ -24,15 +19,18 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author usuario
+ * @author jsturla
  */
 @Entity
 @Table(name = "materialesestados", catalog = "ubuntu", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Materialesestados.findAll", query = "SELECT m FROM Materialesestados m"),
-    @NamedQuery(name = "Materialesestados.findByIdEstMaterial", query = "SELECT m FROM Materialesestados m WHERE m.idEstMaterial = :idEstMaterial"),
-    @NamedQuery(name = "Materialesestados.findByDscEstadoMaterial", query = "SELECT m FROM Materialesestados m WHERE m.dscEstadoMaterial = :dscEstadoMaterial"),
+    @NamedQuery(name = "Materialesestados.findAll", query = "SELECT m FROM Materialesestados m")
+    ,
+    @NamedQuery(name = "Materialesestados.findByIdEstMaterial", query = "SELECT m FROM Materialesestados m WHERE m.idEstMaterial = :idEstMaterial")
+    ,
+    @NamedQuery(name = "Materialesestados.findByDscEstadoMaterial", query = "SELECT m FROM Materialesestados m WHERE m.dscEstadoMaterial = :dscEstadoMaterial")
+    ,
     @NamedQuery(name = "Materialesestados.findByHabilitado", query = "SELECT m FROM Materialesestados m WHERE m.habilitado = :habilitado")})
 public class Materialesestados implements Serializable {
 
@@ -47,8 +45,6 @@ public class Materialesestados implements Serializable {
     private String dscEstadoMaterial;
     @Column(name = "habilitado")
     private Integer habilitado;
-//    @OneToMany(mappedBy = "idEstMaterial", fetch = FetchType.LAZY)
-//    private Collection<Materialesbitacora> materialesbitacoraCollection;
     @OneToMany(mappedBy = "idEstMaterial", fetch = FetchType.LAZY)
     private Collection<Materiales> materialesCollection;
 
@@ -83,7 +79,6 @@ public class Materialesestados implements Serializable {
         this.habilitado = habilitado;
     }
 
- 
     @XmlTransient
     public Collection<Materiales> getMaterialesCollection() {
         return materialesCollection;
@@ -117,5 +112,5 @@ public class Materialesestados implements Serializable {
     public String toString() {
         return "com.entidades.Materialesestados[ idEstMaterial=" + idEstMaterial + " ]";
     }
-    
+
 }

@@ -1,16 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.entidades;
 
-import com.utils.Consts;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,7 +16,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author usuario
+ * @author jsturla
  */
 @Entity
 @Table(name = "paquetes", catalog = "ubuntu", schema = "")
@@ -62,24 +53,17 @@ public class Paquetes implements Serializable {
      @Basic(optional = false)
     @NotNull
     @Column(name = "esterilizado")
-    private int esterilizado;
-//    @ManyToMany(mappedBy = "paquetesCollection", fetch = FetchType.LAZY)
-//    private Collection<Materiales> materialesCollection;
-    
+    private int esterilizado;   
      @JoinTable(name = "paquetesmateriales", joinColumns = {
         @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")}, inverseJoinColumns = {
         @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")})
     @ManyToMany(fetch = FetchType.LAZY)
-    private Collection<Materiales> materialesCollection;
-     
+    private Collection<Materiales> materialesCollection;   
     @ManyToMany(mappedBy = "paquetesCollection", fetch = FetchType.LAZY)
     private Collection<Esterilizacion> esterilizacionCollection;
     @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuarios idUsuario;
-//    @JoinColumn(name = "idEstPaquete", referencedColumnName = "idEstPaquete")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Paquetesestados idEstPaquete;
 
     public Paquetes() {
     }
@@ -93,38 +77,6 @@ public class Paquetes implements Serializable {
         this.habilitado = habilitado;
     }
 
-//     public Collection<Indicadores> getIndicadoresBioCollection()
-//    {
-//        Collection<Indicadores> list= new ArrayList<Indicadores>();
-//      
-//        for (Indicadores p : indicadoresCollection) 
-//        {
-//            if(p.getIdLoteIndicador().getIdProdIndicador().getTpoIndicador().getTpoIndicador()==1)
-//                list.add(p);
-//        }
-//    /*   for(int i = 0 ; i < size ; i++) {
-//            list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(), getRandomSoldState()));
-//        }*/
-//         
-//        return list;
-//    }
-//    
-//     public Collection<Indicadores> getIndicadoresQuimCollection()
-//    {
-//        Collection<Indicadores> list= new ArrayList<Indicadores>();
-//      
-//        for (Indicadores p : indicadoresCollection) 
-//        {
-//            if(p.getIdLoteIndicador().getIdProdIndicador().getTpoIndicador().getTpoIndicador()!=1)
-//                list.add(p);
-//        }
-//    /*   for(int i = 0 ; i < size ; i++) {
-//            list.add(new Car(getRandomId(), getRandomBrand(), getRandomYear(), getRandomColor(), getRandomPrice(), getRandomSoldState()));
-//        }*/
-//         
-//        return list;
-//    }
-    
     public boolean isEsterilizado()
     {
         if(esterilizacionCollection.size()>0)
@@ -203,64 +155,6 @@ public class Paquetes implements Serializable {
         }
         return true;
     }
-
-    
-//      public int actualizarEstado()
-//    {
-//        //Se llama cada vez que se cambie el valor de algunindicador quimico del mismo
-//        //si devuelve true significa que el estado se tiene que actualizar y por ende llamar al facade edit
-//
-////SI NO TIENE INDICADORES SIGNIFICA QUE NO FUE CONTROLADO
-//        
-//        int estadoObjetivo=-1;
-//        
-//        if((indicadoresCollection.isEmpty() || indicadoresCollection==null))
-//        {
-//       //     estadoObjetivo= Consts.ESTADO_ESTERILIZACION_NO_CONTROLADO;
-//                 estadoObjetivo= Consts.ESTADO_PAQUETE_SIN_CONTROL;
-//      //   return true;   
-//        }
-//        
-//        //SI NO ESTA VACIO SIGNIFICA QUE TENGO QUE VERIFICAR EL RESTO DE LOS INDICADORES
-//        
-//        Iterator<Indicadores> itera=indicadoresCollection.iterator();        
-//      while(itera.hasNext())
-//        {
-//           Indicadores temp= itera.next();
-//           
-//        if((temp.getIdEstadoIndicador().getIdEstadoIndicador()==Consts.RESULTADO_CONTROL_INDICADOR_POSITIVO && temp.getIdLoteIndicador().getIdProdIndicador().getTpoIndicador().getTpoIndicador()==Consts.INDICADOR_TIPO_BIOLOGICO)
-//          ||(temp.getIdEstadoIndicador().getIdEstadoIndicador()==Consts.RESULTADO_CONTROL_INDICADOR_NEGATIVO&& temp.getIdLoteIndicador().getIdProdIndicador().getTpoIndicador().getTpoIndicador()!=Consts.INDICADOR_TIPO_BIOLOGICO))
-//        {
-//            //ACA HACER ALGO CON LOS MATERIALES? 
-//            // estadoObjetivo=Consts.ESTADO_LAVADO_SIN_EXITO;        
-//             estadoObjetivo=Consts.ESTADO_PAQUETE_BAJA;
-//             break;
-//        }
-//        else 
-//        if(temp.getIdEstadoIndicador().getIdEstadoIndicador()==Consts.RESULTADO_CONTROL_INDICADOR_SIN_RESULTADO)
-//        {
-//        //  estadoObjetivo= Consts.ESTADO_LAVADO_PARCIALMENTE_CONTROLADO;      
-//                    estadoObjetivo= Consts.ESTADO_PAQUETE_PARCIALMENTE_CONTROLADO; 
-//          break;
-//        }
-//        }
-//      
-//      if(estadoObjetivo==-1)
-//           //  estadoObjetivo= Consts.ESTADO_LAVADO_EXITOSO; 
-//             estadoObjetivo= Consts.ESTADO_PAQUETE_CONTROLADO;
-//      
-//      if(idEstPaquete.getIdEstPaquete()==estadoObjetivo)
-//      {
-//          return -1; //dice si cambió o no el estado
-//      }
-//      else 
-//      {
-//          return estadoObjetivo;
-//            }
-//    // en esta funcion lo que tengo que hacer es recorrer todos los indicadores y dependiendo de los estados que tenga
-//        //cambiar a parcialmente controlado, controlado, sin control, exito, sin exito, etceterererarar
-//    }
-//    
 
     /**
      * @return the esterilizado

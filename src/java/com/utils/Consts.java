@@ -5,14 +5,9 @@ package com.utils;
  * @author jsturla
  */
 public final class Consts {
-    
-    
-    
 
   public static final int MOVIMIENTO_ENTRADA = 0;
   public static final int MOVIMIENTO_SALIDA = 1;
-    
-
 
   public static final int ESTADO_MATERIAL_FUERA= 1;
   public static final int ESTADO_MATERIAL_INGRESADO = 2;
@@ -35,12 +30,6 @@ public final class Consts {
   public static final int ESTADO_PAQUETE_SIN_CONTROL = 10;
   public static final int ESTADO_PAQUETE_PARCIALMENTE_CONTROLADO = 11;
   
-  public static final String CODIGO_ALMACEN_CENTRAL = "almacenCentral";
-    public static final String CODIGO_ALMACEN_QUIROFANO = "Quirofano";   //temporal juan
-
-  public static final String JASYPT_PASSWD = "vdm308";
-
-  // Group Separator
   public static final int REGISTRO_HABILITADO=0;
   
   private Consts() {

@@ -8,15 +8,10 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
 
 
 @Stateless
 public class UsuariosFacade extends AbstractFacade<Usuarios> {
-
-//	private static final Logger logger = LogManager.
-//								getLogger(UsuariosFacade.class);
 
 	@PersistenceContext(unitName = "ubuntu_PU")
 	private EntityManager em;
@@ -42,7 +37,6 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
         isql += "SELECT m FROM Usuarios m ";
         isql += "WHERE m.habilitado = 0 ";
         Query qry = em.createQuery(isql);
-        //qry.setParameter("idPaquete", idPaquete);
         List<Usuarios> rval = qry.getResultList();
 
         return rval;

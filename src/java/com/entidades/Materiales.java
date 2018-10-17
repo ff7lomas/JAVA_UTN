@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.entidades;
 
 import java.io.Serializable;
@@ -20,7 +15,6 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -29,17 +23,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author usuario
+ * @author jsturla
  */
 @Entity
 @Table(name = "materiales", catalog = "ubuntu", schema = "")
 @XmlRootElement
 @NamedQueries({
-    @NamedQuery(name = "Materiales.findAll", query = "SELECT m FROM Materiales m"),
-    @NamedQuery(name = "Materiales.findByIdMaterial", query = "SELECT m FROM Materiales m WHERE m.idMaterial = :idMaterial"),
-    @NamedQuery(name = "Materiales.findByNroLote", query = "SELECT m FROM Materiales m WHERE m.nroLote = :nroLote"),
-    @NamedQuery(name = "Materiales.findByNroSerie", query = "SELECT m FROM Materiales m WHERE m.nroSerie = :nroSerie"),
-//    @NamedQuery(name = "Materiales.findByIdKit", query = "SELECT m FROM Materiales m WHERE m.idKit = :idKit"),
+    @NamedQuery(name = "Materiales.findAll", query = "SELECT m FROM Materiales m")
+    ,
+    @NamedQuery(name = "Materiales.findByIdMaterial", query = "SELECT m FROM Materiales m WHERE m.idMaterial = :idMaterial")
+    ,
+    @NamedQuery(name = "Materiales.findByNroLote", query = "SELECT m FROM Materiales m WHERE m.nroLote = :nroLote")
+    ,
+    @NamedQuery(name = "Materiales.findByNroSerie", query = "SELECT m FROM Materiales m WHERE m.nroSerie = :nroSerie")
+    ,
     @NamedQuery(name = "Materiales.findByHabilitado", query = "SELECT m FROM Materiales m WHERE m.habilitado = :habilitado")})
 public class Materiales implements Serializable {
 
@@ -63,11 +60,6 @@ public class Materiales implements Serializable {
     @NotNull
     @Column(name = "habilitado")
     private int habilitado;
-//    @JoinTable(name = "materiales_lavadoincidencias", joinColumns = {
-//        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
-//        @JoinColumn(name = "idLavadoincidencia", referencedColumnName = "idLavadoincidencia")})
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private Collection<Lavadoincidencias> lavadoincidenciasCollection;
     @JoinTable(name = "paquetesmateriales", joinColumns = {
         @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
         @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")})
@@ -76,19 +68,10 @@ public class Materiales implements Serializable {
     @JoinColumn(name = "idEstMaterial", referencedColumnName = "idEstMaterial")
     @ManyToOne(fetch = FetchType.LAZY)
     private Materialesestados idEstMaterial;
-//    @JoinColumn(name = "idPropietario", referencedColumnName = "idPropietario")
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    private Propietarios idPropietario;
-//    @JoinTable(name = "lavadosmateriales", joinColumns = {
-//        @JoinColumn(name = "idMaterial", referencedColumnName = "idMaterial")}, inverseJoinColumns = {
-//        @JoinColumn(name = "idLavado", referencedColumnName = "idLavado")})
-//    @ManyToMany(fetch = FetchType.LAZY)
-//    private Collection<Lavados> lavadosCollection;
-    
-       @Size(max = 100)
+    @Size(max = 100)
     @Column(name = "dscTipoMaterial")
     private String dscTipoMaterial;
-           @Size(max = 100)
+    @Size(max = 100)
     @Column(name = "marca")
     private String marca;
     @Size(max = 100)
@@ -141,42 +124,14 @@ public class Materiales implements Serializable {
         this.habilitado = habilitado;
     }
 
-//    @XmlTransient
-//    public Collection<Lavadoincidencias> getLavadoincidenciasCollection() {
-//        return lavadoincidenciasCollection;
-//    }
-//
-//    public void setLavadoincidenciasCollection(Collection<Lavadoincidencias> lavadoincidenciasCollection) {
-//        this.lavadoincidenciasCollection = lavadoincidenciasCollection;
-//    }
-    
- 
-            
-//     @XmlTransient
-//    public Collection<Lavados> getLavadosCollection() {
-//        return lavadosCollection;
-//    }
-//
-//    public void setLavadosCollection(Collection<Lavados> lavadosCollection) {
-//        this.lavadosCollection = lavadosCollection;
-//    }
-//    
-//    public Lavados getLastLavado()
-//    {
-//        if(lavadosCollection.size()!=0)
-//   return (Lavados) lavadosCollection.toArray()[lavadosCollection.toArray().length-1];
-//        else
-//            return null;
-//    }
-    
-       public Paquetes getLastPaquete()
-    { 
+    public Paquetes getLastPaquete() {
         //SE PUEDE PONER ACA O CUANDO SE LLAMA
         //QUE CUANDO AGARRA EL ÚLTIMO PAQUETE, CHECKEE EL ESTADO PARA VER SI ESTÁ ACTIVO O NO
-        if(paquetesCollection.size()!=0)
-   return (Paquetes) paquetesCollection.toArray()[paquetesCollection.toArray().length-1];
-        else
+        if (paquetesCollection.size() != 0) {
+            return (Paquetes) paquetesCollection.toArray()[paquetesCollection.toArray().length - 1];
+        } else {
             return null;
+        }
     }
 
     @XmlTransient
@@ -188,75 +143,6 @@ public class Materiales implements Serializable {
         this.paquetesCollection = paquetesCollection;
     }
 
-//    @XmlTransient
-//    public Collection<Cirugia> getCirugiaCollection() {
-//        return cirugiaCollection;
-//    }
-//
-//    public void setCirugiaCollection(Collection<Cirugia> cirugiaCollection) {
-//        this.cirugiaCollection = cirugiaCollection;
-//    }
-//
-//    @XmlTransient
-//    public Collection<Remitos> getRemitosCollection() {
-//        return remitosCollection;
-//    }
-//
-//    public void setRemitosCollection(Collection<Remitos> remitosCollection) {
-//        this.remitosCollection = remitosCollection;
-//    }
-//
-//    @XmlTransient
-//    public Collection<Acondicionamientoincidencias> getAcondicionamientoincidenciasCollection() {
-//        return acondicionamientoincidenciasCollection;
-//    }
-//
-//    public void setAcondicionamientoincidenciasCollection(Collection<Acondicionamientoincidencias> acondicionamientoincidenciasCollection) {
-//        this.acondicionamientoincidenciasCollection = acondicionamientoincidenciasCollection;
-//    }
-//
-//    @XmlTransient
-//    public Collection<Esterilizacionincidencias> getEsterilizacionincidenciasCollection() {
-//        return esterilizacionincidenciasCollection;
-//    }
-//
-//    public void setEsterilizacionincidenciasCollection(Collection<Esterilizacionincidencias> esterilizacionincidenciasCollection) {
-//        this.esterilizacionincidenciasCollection = esterilizacionincidenciasCollection;
-//    }
-
-//    @XmlTransient
-//    public Collection<Materialesbitacora> getMaterialesbitacoraCollection() {
-//        return materialesbitacoraCollection;
-//    }
-//
-//    public void setMaterialesbitacoraCollection(Collection<Materialesbitacora> materialesbitacoraCollection) {
-//        this.materialesbitacoraCollection = materialesbitacoraCollection;
-//    }
-//
-//    public Almacenes getCodAlmacen() {
-//        return codAlmacen;
-//    }
-//
-//    public void setCodAlmacen(Almacenes codAlmacen) {
-//        this.codAlmacen = codAlmacen;
-//    }
-
-//    public Kits getIdKit() {
-//        return idKit;
-//    }
-//
-//    public void setIdKit(Kits idKit) {
-//        this.idKit = idKit;
-//    }
-
-//    public Materialestipos getIdTipoMaterial() {
-//        return idTipoMaterial;
-//    }
-//
-//    public void setIdTipoMaterial(Materialestipos idTipoMaterial) {
-//        this.idTipoMaterial = idTipoMaterial;
-//    }
-
     public Materialesestados getIdEstMaterial() {
         return idEstMaterial;
     }
@@ -264,14 +150,6 @@ public class Materiales implements Serializable {
     public void setIdEstMaterial(Materialesestados idEstMaterial) {
         this.idEstMaterial = idEstMaterial;
     }
-
-//    public Propietarios getIdPropietario() {
-//        return idPropietario;
-//    }
-//
-//    public void setIdPropietario(Propietarios idPropietario) {
-//        this.idPropietario = idPropietario;
-//    }
 
     @Override
     public int hashCode() {
@@ -318,10 +196,9 @@ public class Materiales implements Serializable {
     public String getMarca() {
         return marca;
     }
-    
-    public void setMarca(String marca)
-    {
-        this.marca=marca;
+
+    public void setMarca(String marca) {
+        this.marca = marca;
     }
 
     /**
@@ -330,10 +207,9 @@ public class Materiales implements Serializable {
     public String getFamilia() {
         return familia;
     }
-    
-    public void setFamilia(String familia)
-    {
-        this.familia=familia;
+
+    public void setFamilia(String familia) {
+        this.familia = familia;
     }
-    
+
 }

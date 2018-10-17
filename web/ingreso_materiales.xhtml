@@ -13,31 +13,31 @@
             <div class="EmptyBox50"></div>
             <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
             <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{materialesView.user}" outcome="index"></p:link>     
-           <p:breadCrumb>
-              <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
-              <p:menuitem value="Ingreso Materiales" class="bc-last-item" />
+            <p:breadCrumb>
+                <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
+                <p:menuitem value="Ingreso Materiales" class="bc-last-item" />
             </p:breadCrumb>
-            
+
             <p:panelGrid columns="4" layout="grid" style="width: 800px; border: 0" rendered="false">
-            
-            <p:outputLabel for="lote" value="Lote:"  />
-            <p:inputText id="lote"  placeholder="Lote" value="#{materialesView.newLote}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
-           
-            <p:outputLabel for="serie" value="Serie:"  />
-            <p:inputText id="serie"  placeholder="Serie" value="#{materialesView.newSerie}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
-           
-            <p:outputLabel for="desc" value="Descripción:"  />
-            <p:inputText id="desc"  placeholder="Descripción" value="#{materialesView.newDesc}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
-           
-            <p:outputLabel for="marca" value="Marca:"  />
-            <p:inputText id="marca"  placeholder="Marca" value="#{materialesView.newMarca}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
-           
-            <p:outputLabel for="familia" value="Familia:"  />
-            <p:inputText id="familia"  placeholder="Familia" value="#{materialesView.newFamilia}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
-           
+
+                <p:outputLabel for="lote" value="Lote:"  />
+                <p:inputText id="lote"  placeholder="Lote" value="#{materialesView.newLote}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+
+                <p:outputLabel for="serie" value="Serie:"  />
+                <p:inputText id="serie"  placeholder="Serie" value="#{materialesView.newSerie}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+
+                <p:outputLabel for="desc" value="Descripción:"  />
+                <p:inputText id="desc"  placeholder="Descripción" value="#{materialesView.newDesc}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+
+                <p:outputLabel for="marca" value="Marca:"  />
+                <p:inputText id="marca"  placeholder="Marca" value="#{materialesView.newMarca}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+
+                <p:outputLabel for="familia" value="Familia:"  />
+                <p:inputText id="familia"  placeholder="Familia" value="#{materialesView.newFamilia}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />
+
             </p:panelGrid>
-            
-              <p:dataTable id="datalist" 
+
+            <p:dataTable id="datalist" 
                          widgetVar="materialesDT" 
                          var="item" 
                          value="#{movimientosView.materialesIngreso}" 
@@ -55,49 +55,49 @@
                          rowIndexVar="#{item.idMaterial}"
                          binding="#{datalist}">
 
-             <p:ajax event="rowSelect"		update="createButton  deleteButton" />
-              <p:ajax event="rowUnselect"	update="createButton   deleteButton" />
+                <p:ajax event="rowSelect"		update="createButton  deleteButton" />
+                <p:ajax event="rowUnselect"	update="createButton   deleteButton" />
 
-           <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
+                <p:column selectionMode="multiple" style="width:16px;text-align:center"/>
 
-              <p:column headerText="ID" filterBy="#{item.idMaterial}" sortBy="#{item.idMaterial}" filterMatchMode="contains">
-                <h:outputText value="#{item.idMaterial}" />
-              </p:column>
+                <p:column headerText="ID" filterBy="#{item.idMaterial}" sortBy="#{item.idMaterial}" filterMatchMode="contains">
+                    <h:outputText value="#{item.idMaterial}" />
+                </p:column>
 
-              <p:column headerText="Lote" filterBy="#{item.nroLote}" sortBy="#{item.nroLote}" filterMatchMode="contains">
-                <h:outputText value="#{item.nroLote}" />
-              </p:column>
+                <p:column headerText="Lote" filterBy="#{item.nroLote}" sortBy="#{item.nroLote}" filterMatchMode="contains">
+                    <h:outputText value="#{item.nroLote}" />
+                </p:column>
 
-              <p:column headerText="Nro Serie" filterBy="#{item.nroSerie}" sortBy="#{item.nroSerie}" filterMatchMode="contains">
-                <h:outputText value="#{item.nroSerie}" />
-              </p:column>
+                <p:column headerText="Nro Serie" filterBy="#{item.nroSerie}" sortBy="#{item.nroSerie}" filterMatchMode="contains">
+                    <h:outputText value="#{item.nroSerie}" />
+                </p:column>
 
-              <p:column headerText="Marca" filterBy="#{item.marca}" sortBy="#{item.marca}" filterMatchMode="contains">
-                <h:outputText value="#{item.marca}" />
-              </p:column>
-              
-              <p:column headerText="Familia" filterBy="#{item.familia}" sortBy="#{item.familia}" filterMatchMode="contains">
-                <h:outputText value="#{item.familia}" />
-              </p:column>
+                <p:column headerText="Marca" filterBy="#{item.marca}" sortBy="#{item.marca}" filterMatchMode="contains">
+                    <h:outputText value="#{item.marca}" />
+                </p:column>
 
-           <p:column headerText="Estado" filterBy="#{item.idEstMaterial.dscEstadoMaterial}" sortBy="#{item.idEstMaterial.dscEstadoMaterial}" filterMatchMode="contains">
-                <h:outputText value="#{item.idEstMaterial.dscEstadoMaterial}" />
-              </p:column>
+                <p:column headerText="Familia" filterBy="#{item.familia}" sortBy="#{item.familia}" filterMatchMode="contains">
+                    <h:outputText value="#{item.familia}" />
+                </p:column>
 
-              <f:facet name="footer">
+                <p:column headerText="Estado" filterBy="#{item.idEstMaterial.dscEstadoMaterial}" sortBy="#{item.idEstMaterial.dscEstadoMaterial}" filterMatchMode="contains">
+                    <h:outputText value="#{item.idEstMaterial.dscEstadoMaterial}" />
+                </p:column>
 
-                
-                  <p:commandButton id="createButton" value="Crear" update="datalist " 
-                                   actionListener="#{movimientosView.createMovimiento()}" ajax="false" disabled="#{movimientosView.materialesSelected.size()==0}"/>
-                
+                <f:facet name="footer">
 
-                <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
-                                 actionListener="#{movimientosView.reset()}" disabled="#{movimientosView.materialesSelected.size()==0}"/>
 
-               
-              </f:facet>
+                    <p:commandButton id="createButton" value="Crear" update="datalist " 
+                                     actionListener="#{movimientosView.createMovimiento()}" ajax="false" disabled="#{movimientosView.materialesSelected.size()==0}"/>
+
+
+                    <p:commandButton id="deleteButton" value="Limpiar" update="datalist" 
+                                     actionListener="#{movimientosView.reset()}" disabled="#{movimientosView.materialesSelected.size()==0}"/>
+
+
+                </f:facet>
             </p:dataTable>
-           
+
         </h:form>
         <br />
     </h:body>

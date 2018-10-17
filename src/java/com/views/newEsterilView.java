@@ -5,27 +5,19 @@ import com.entidades.Materiales;
 import com.entidades.Materialesestados;
 import com.entidades.Paquetes;
 import com.entidades.Usuarios;
-import com.facades.EsterilizacionFacade;
-import com.facades.PaquetesFacade;
-//import com.models.Datamatrix;
 import com.utils.JsfUtil;
 import com.utils.Consts;
-import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
-//import org.apache.logging.log4j.LogManager;
-//import org.apache.logging.log4j.Logger;
 
 /**
  *
@@ -35,70 +27,54 @@ import javax.inject.Named;
 @ViewScoped
 public class newEsterilView implements Serializable {
 
-  private static final long serialVersionUID = 1094801825228386363L;
+    private static final long serialVersionUID = 1094801825228386363L;
 
-//  private static final Logger logger = LogManager.getLogger(LoginView.class);
+    private List<Paquetes> paquetes;
+    private List<Paquetes> paquetesSelected;
 
-  private List<Paquetes> paquetes;
-  private List<Paquetes> paquetesSelected;
-  
- 
-  
- private Date newFecha;
- private int newCiclo;
- private Usuarios newUsuario;
-  
-  
-     @Inject
-  private LoginView loginView;
-   
-  @PostConstruct
+    private Date newFecha;
+    private int newCiclo;
+    private Usuarios newUsuario;
+
+    @Inject
+    private LoginView loginView;
+
+    @PostConstruct
     public void init() {
-        
-        paquetesSelected =  new ArrayList<Paquetes>();
-        paquetes = null;       
-
+        paquetesSelected = new ArrayList<Paquetes>();
+        paquetes = null;
     }
 
     public void reset() {
-        paquetes=null;
-        paquetesSelected= new ArrayList<Paquetes>();
-        newFecha= new Date();
+        paquetes = null;
+        paquetesSelected = new ArrayList<Paquetes>();
+        newFecha = new Date();
     }
-  
 
-  @EJB
-  private com.facades.MaterialesFacade materialesFacade;
-  
     @EJB
-  private com.facades.MaterialesestadosFacade materialesestadosFacade;
-    
-        @EJB
-  private com.facades.PaquetesFacade paquetesFacade;
-    
-        @EJB
-  private com.facades.EsterilizacionFacade esterilizacionFacade;
-        
-     @EJB
-  private com.facades.UsuariosFacade usuariosFacade;
+    private com.facades.MaterialesFacade materialesFacade;
+
+    @EJB
+    private com.facades.MaterialesestadosFacade materialesestadosFacade;
+
+    @EJB
+    private com.facades.PaquetesFacade paquetesFacade;
+
+    @EJB
+    private com.facades.EsterilizacionFacade esterilizacionFacade;
+
+    @EJB
+    private com.facades.UsuariosFacade usuariosFacade;
 
     /**
      * @return the materiales
      */
     public List<Paquetes> getPaquetes() {
-//        List<Paquetes> tempPaquete;
         if (paquetes == null) {
             paquetes = paquetesFacade.findHabilitadosNoEsteriles();
-//            paquetes = new ArrayList<Paquetes>();
-//            for (Paquetes paquete : tempPaquete) {
-//                if (!paquete.isEsterilizado()) {
-//                    paquetes.add(paquete);
-//                }
-//            }
         }
         return paquetes;
     }
-    
 
     /**
      * @param paquetes the materiales to set
@@ -121,58 +97,40 @@ public class newEsterilView implements Serializable {
         this.paquetesSelected = paquetesSelected;
     }
 
-    
-    public void createEsterilizacion()
-    {
-        try
-        {
-            if(newCiclo==0) {JsfUtil.addErrorMessage("Ciclo no puede ser 0");
-            return;}
-            
-            
-            Esterilizacion newEsteril= new Esterilizacion();
+    public void createEsterilizacion() {
+        try {
+            if (newCiclo == 0) {
+                JsfUtil.addErrorMessage("Ciclo no puede ser 0");
+                return;
+            }
+
+            Esterilizacion newEsteril = new Esterilizacion();
             newEsteril.setFecha(new Date());
-            
+
             newEsteril.setIdUsuario(loginView.getUsuario());
-            
+
             newEsteril.setCiclo(newCiclo);
-            
-            Materialesestados estadoObjectivo= materialesestadosFacade.find(Consts.ESTADO_MATERIAL_ESTERILIZADO);
-            for(Paquetes paquete: paquetesSelected)
-            {
-            for(Materiales material: paquete.getMaterialesCollection())
-            {
-             material.setIdEstMaterial(estadoObjectivo);
-             materialesFacade.edit(material);
+
+            Materialesestados estadoObjectivo = materialesestadosFacade.find(Consts.ESTADO_MATERIAL_ESTERILIZADO);
+            for (Paquetes paquete : paquetesSelected) {
+                for (Materiales material : paquete.getMaterialesCollection()) {
+                    material.setIdEstMaterial(estadoObjectivo);
+                    materialesFacade.edit(material);
+                }
+                paquete.setEsterilizado(1);
+                paquetesFacade.edit(paquete);
             }
-            paquete.setEsterilizado(1);
-            paquetesFacade.edit(paquete);
-            }
-            
+
             newEsteril.setPaquetesCollection(paquetesSelected);
             esterilizacionFacade.create(newEsteril);
             reset();
-            paquetes=null;
+            paquetes = null;
             JsfUtil.addSuccessMessage("Esterilización registrada!");
-            
-        }
-        catch( Exception e)
-        {
-            JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
+
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage("Exepción: " + e.getMessage());
         }
     }
-    
-//      public void goBack()
-//    {
-//        try{
-//        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-//      ec.redirect(ec.getRequestContextPath() + "/faces/materiales_all.xhtml");
-//        }
-//        catch(Exception e)
-//        {
-//            
-//        }
-//    }
 
     /**
      * @return the newFecha
@@ -215,25 +173,23 @@ public class newEsterilView implements Serializable {
     public void setNewUsuario(Usuarios newUsuario) {
         this.newUsuario = newUsuario;
     }
-    
-           public void goLogin()
-    {
-        try{
-        ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-      ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
-        }
-        catch(Exception e)
-        {
-                        JsfUtil.addErrorMessage("Exepción: "+e.getMessage());
+
+    public void goLogin() {
+        try {
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+            ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
+        } catch (Exception e) {
+            JsfUtil.addErrorMessage("Exepción: " + e.getMessage());
         }
     }
-      
-      public String getUser(){
-         if(loginView.getUsername()==null)
-         { goLogin();
-         return "";}
-             else
-          return loginView.getUsername();
-      }
+
+    public String getUser() {
+        if (loginView.getUsername() == null) {
+            goLogin();
+            return "";
+        } else {
+            return loginView.getUsername();
+        }
+    }
 
 }
