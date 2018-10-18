@@ -137,7 +137,7 @@ public class usuariosView implements Serializable {
 
             if (usuarioIdSelected != null) {//edito
                 usuarioSelected.setUser(newUsername);
-                usuarioSelected.setPassword(newPassword);
+                usuarioSelected.setPassword(Utils.createPasswdHash(newPassword));
                 usuariosFacade.edit(usuarioSelected);
                 JsfUtil.addSuccessMessage("Editado con éxito");
                 goBack();

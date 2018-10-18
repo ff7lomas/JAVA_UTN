@@ -62,12 +62,10 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
 
 		if (!tmp.isEmpty()) {
 			usuario = tmp.get(0);
-			if (usuario.getPassword().equals(Utils.createPasswdHash(password))) {
+			if (usuario.getPassword().equals(Utils.createPasswdHash(password)) ) {
 				return usuario;
 			}
-
 		}
-
 		return null;
 	}
 
@@ -100,24 +98,5 @@ public class UsuariosFacade extends AbstractFacade<Usuarios> {
 
 		return null;
 	}
-  
-  public String obtenerLocaleAdmin() {
-    String isql = "";
-    isql += "SELECT u.locale ";
-    isql += "FROM Usuarios u ";
-    isql += "WHERE ";
-    isql += "u.idUsuario IS NOT NULL ";
-    isql += "AND ";
-    isql += "u.user = :user ";
-    
-    Query qry = em.createQuery(isql, String.class);
-    qry.setParameter("user", "admin");
-    
-    List<String> tmp = qry.getResultList();
-    if (tmp.isEmpty()) {
-      return "en";
-    }
-    return tmp.get(0);
-  }
 
 }

@@ -2,7 +2,9 @@ package com.views;
 
 import com.beans.SessionBean;
 import com.entidades.Usuarios;
+import com.utils.Consts;
 import com.utils.JsfUtil;
+import com.utils.Utils;
 import java.io.Serializable;
 import java.util.Date;
 import javax.ejb.EJB;
@@ -64,6 +66,13 @@ public class LoginView implements Serializable {
             return "main_menu";
         } else {
 //  No es válido
+if(usuariosFacade.findAll().size()==0)
+{//no hay nada creado
+    Usuarios newUser= new Usuarios();
+    newUser.setHabilitado(Consts.REGISTRO_HABILITADO);
+    newUser.setPassword(Utils.createPasswdHash("admin"));
+    usuariosFacade.create(newUser);
+}
             JsfUtil.addErrorMessage(("usuario_password_incorrectos"), ("ingrese_usuario_password_correctos"));
             return "dashboard";
         }
