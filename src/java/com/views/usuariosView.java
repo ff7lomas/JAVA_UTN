@@ -2,6 +2,7 @@ package com.views;
 
 import com.entidades.Usuarios;
 import com.utils.JsfUtil;
+import com.utils.Utils;
 import java.io.Serializable;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -145,7 +146,7 @@ public class usuariosView implements Serializable {
 
                 usuarioSelected = new Usuarios();
                 usuarioSelected.setUser(newUsername);
-                usuarioSelected.setPassword(newPassword);
+                usuarioSelected.setPassword(Utils.createPasswdHash(newPassword));
                 usuarioSelected.setHabilitado(0);
                 usuariosFacade.create(usuarioSelected);
 
