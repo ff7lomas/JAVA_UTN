@@ -55,6 +55,7 @@ public class Esterilizacion implements Serializable {
         @JoinColumn(name = "idPaquete", referencedColumnName = "idPaquete")})
     @ManyToMany(fetch = FetchType.LAZY)
     private Collection<Paquetes> paquetesCollection;
+    @JoinColumn(name = "idUsuario", referencedColumnName = "idUsuario")
     @ManyToOne(fetch = FetchType.LAZY)
     private Usuarios idUsuario;
 
