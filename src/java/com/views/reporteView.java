@@ -36,6 +36,7 @@ public class reporteView implements Serializable {
 
     @PostConstruct
     public void init() {
+        if(!loginView.isAdminLogin()) goLogin();
         createPieModel1();
         createPieModel2();
     }

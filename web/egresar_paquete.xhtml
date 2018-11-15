@@ -12,7 +12,7 @@
             Retirar de la central paquetes ya esterilizados
             <div class="EmptyBox50"></div>
             <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
-            <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{egresoPaqueteView.user}" outcome="index"></p:link>
+            <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{loginView.usuarioLogeado()}"   outcome="index"></p:link>
            <p:breadCrumb>
               <p:menuitem value="Menú" outcome="/main_menu.xhtml" />
               <p:menuitem value="Egresar     Paquetes" class="bc-last-item" />

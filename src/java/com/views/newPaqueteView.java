@@ -40,6 +40,9 @@ public class newPaqueteView implements Serializable {
 
     @PostConstruct
     public void init() {
+        if (loginView.usuarioLogeado() == "No loggeado") {
+            goLogin();
+        }
 
         materialesSelected = new ArrayList<>();
         materiales = null;

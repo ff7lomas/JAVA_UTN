@@ -12,9 +12,9 @@
         <h:form>
             Elige una opción
             <div class="EmptyBox50"></div>
-            <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{loginView.usuarioLogeado()}" outcome="index"></p:link>
-         
-            <p:panelGrid columns="1" layout="grid" style="width: 400px; border: 0">
+          <p:outputLabel for="usuario" value="Usuario logeado:"> </p:outputLabel><p:link id="usuario" value="#{loginView.usuarioLogeado()}" outcome="index" ></p:link>
+            
+             <p:panelGrid columns="1" layout="grid" style="width: 400px; border: 0">
             
             <p:button id="opt1" value="ABM Materiales" styleClass="Fs16"  outcome="materiales_all" ></p:button>
              <p:button id="opt2" value="ABM Usuarios" styleClass="Fs16"  outcome="usuarios_all" ></p:button>

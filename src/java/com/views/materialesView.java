@@ -40,6 +40,10 @@ public class materialesView implements Serializable {
     @PostConstruct
     public void init() {
 
+        if (loginView.usuarioLogeado() == "No loggeado") {
+            goLogin();
+        }
+        
         materialSelected = null;
         materiales = null;
         reset();

@@ -36,9 +36,9 @@ public class LoginView implements Serializable {
     }
 
     public boolean isAdminLogin() {
-        HttpSession session = SessionBean.getSession();
-        String debug = session.getAttribute("username").toString();
-        if (debug.equals("admin")) {
+     //   HttpSession session = SessionBean.getSession();
+    //    String debug = session.getAttribute("username").toString();
+        if (usuarioLogeado().equals("admin")) {
             return true;
         } else {
             return false;
@@ -46,9 +46,16 @@ public class LoginView implements Serializable {
     }
 
     public String usuarioLogeado() {
+        try{
         HttpSession session = SessionBean.getSession();
-        String debug = session.getAttribute("username").toString();
+        String debug = session.getAttribute("username").toString(); 
         return debug;
+        }
+        catch(Exception e)
+        {
+            return "No loggeado";
+        }
+                
     }
 
     // Validate login helper
@@ -66,16 +73,23 @@ public class LoginView implements Serializable {
             return "main_menu";
         } else {
 //  No es válido
-if(usuariosFacade.findAll().size()==0)
-{//no hay nada creado
-    Usuarios newUser= new Usuarios();
-    newUser.setHabilitado(Consts.REGISTRO_HABILITADO);
-    newUser.setPassword(Utils.createPasswdHash("admin"));
-    usuariosFacade.create(newUser);
-}
+            if (usuariosFacade.findHabilitados().size() == 0) {//no hay nada creado
+                Usuarios newUser = new Usuarios();
+                newUser.setHabilitado(Consts.REGISTRO_HABILITADO);
+                newUser.setUser("admin");
+                newUser.setPassword(Utils.createPasswdHash("admin"));
+                usuariosFacade.create(newUser);
+            }
             JsfUtil.addErrorMessage(("usuario_password_incorrectos"), ("ingrese_usuario_password_correctos"));
             return "dashboard";
         }
+    }
+    
+    public void logOutUsuario()
+    {
+        HttpSession session = SessionBean.getSession();
+             session.removeAttribute("username");
+    
     }
 
     public String getPassword() {

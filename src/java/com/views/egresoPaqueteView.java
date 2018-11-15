@@ -41,7 +41,9 @@ public class egresoPaqueteView implements Serializable {
 
     @PostConstruct
     public void init() {
-
+        if (loginView.usuarioLogeado() == "No loggeado") {
+            goLogin();
+        }
         paquetesSelected = new ArrayList<Paquetes>();
         paquetes = null;
 
@@ -178,14 +180,6 @@ public class egresoPaqueteView implements Serializable {
             ec.redirect(ec.getRequestContextPath() + "/faces/index.xhtml");
         } catch (Exception e) {
             JsfUtil.addErrorMessage("Exepción: " + e.getMessage());
-        }
-    }
-
-    public String getUser() {
-        if (loginView.getUsername() == null) {
-            return "";
-        } else {
-            return loginView.getUsername();
         }
     }
 
