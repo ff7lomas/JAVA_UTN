@@ -12,7 +12,8 @@
         <h:form>
             Ingrese con su usuario y contraseña
             <div class="EmptyBox50"></div>
-
+ <p:growl id="growl" showDetail="true" life="5000" severity="info,error,warn,fatal" autoUpdate="true" />
+           
             <p:outputLabel for="username" value="Username" style="visibility: hidden; position: fixed; " />
            
             <p:inputText id="username"  placeholder="Username" value="#{loginView.username}" style="width: 80% !important;" styleClass="Container80 Fnone MarAuto Fs18 Opac70" required="true" />

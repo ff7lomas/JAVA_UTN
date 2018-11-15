@@ -80,7 +80,7 @@ public class LoginView implements Serializable {
                 newUser.setPassword(Utils.createPasswdHash("admin"));
                 usuariosFacade.create(newUser);
             }
-            JsfUtil.addErrorMessage(("usuario_password_incorrectos"), ("ingrese_usuario_password_correctos"));
+            JsfUtil.addErrorMessage(("Credenciales Incorrectas"), ("Ingrese el usuario y contraseña correctos"));
             return "dashboard";
         }
     }
